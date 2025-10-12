@@ -215,22 +215,22 @@ h6 {
 }
 
 .hero-slide:nth-child(1) {
-    background-image: url('https://images.pexels.com/photos/3621950/pexels-photo-3621950.jpeg?auto=compress&cs=tinysrgb&w=1920');
+    background-image: url('../images/hero-1.jpg');
     animation-delay: 0s;
 }
 
 .hero-slide:nth-child(2) {
-    background-image: url('https://images.pexels.com/photos/8553530/pexels-photo-8553530.jpeg?auto=compress&cs=tinysrgb&w=1920');
+    background-image: url('../images/hero-2.jpg');
     animation-delay: 6s;
 }
 
 .hero-slide:nth-child(3) {
-    background-image: url('https://images.pexels.com/photos/12211605/pexels-photo-12211605.jpeg?auto=compress&cs=tinysrgb&w=1920');
+    background-image: url('../images/hero-3.jpg');
     animation-delay: 12s;
 }
 
 .hero-slide:nth-child(4) {
-    background-image: url('https://images.pexels.com/photos/14759552/pexels-photo-14759552.jpeg?auto=compress&cs=tinysrgb&w=1920');
+    background-image: url('../images/hero-4.jpg');
     animation-delay: 18s;
 }
 

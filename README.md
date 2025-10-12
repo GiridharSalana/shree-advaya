@@ -1,130 +1,128 @@
-# ShreeAdvaya - Saree Portfolio Website
+# ShreeAdvaya - Premium Saree Collection Website
 
-A modern, responsive static website for ShreeAdvaya, showcasing premium saree collections with seamless WhatsApp integration for business inquiries.
+A modern, responsive website showcasing premium saree collections with seamless WhatsApp integration for business inquiries.
 
-## Features
+## 🎨 Features
 
-### 🎨 Design & UI
-- **Modern & Traditional**: Blends contemporary design with traditional Indian aesthetics
-- **Responsive Design**: Optimized for all devices (desktop, tablet, mobile)
-- **Beautiful Typography**: Uses Playfair Display for headings and Inter for body text
-- **Smooth Animations**: Scroll-triggered animations and hover effects
-- **Color Scheme**: Gold (#d4af37) and cream (#fef7e0) with elegant gradients
-
-### 📱 Functionality
+- **Modern Design**: Beautiful UI with symmetrical layouts and centered content
+- **Hero Slideshow**: HD background image slideshow with smooth transitions
+- **Responsive**: Optimized for desktop, tablet, and mobile devices
 - **Product Showcase**: Filterable product categories (Silk, Cotton, Designer, Bridal)
-- **Image Gallery**: Lightbox functionality for product images
+- **Gallery**: Interactive image gallery with lightbox functionality
 - **WhatsApp Integration**: Direct messaging for business inquiries
-- **Contact Form**: Quick inquiry form with WhatsApp integration
-- **Smooth Scrolling**: Navigation with smooth scroll behavior
-- **Mobile Menu**: Hamburger menu for mobile devices
+- **Smooth Animations**: Scroll-triggered animations and hover effects
+- **All Images Local**: No external dependencies - works offline
 
-### 🚀 Performance
-- **Static Site**: Fast loading with no backend dependencies
-- **Optimized Images**: High-quality images from Unsplash
-- **Lazy Loading**: Images load as they come into view
-- **Minimal Dependencies**: Only essential external resources
-
-## File Structure
+## 📁 Project Structure
 
 ```
 ShreeAdvaya/
-├── index.html          # Main HTML file
-├── styles.css          # CSS styles and responsive design
-├── script.js           # JavaScript functionality
-└── README.md           # This file
+├── index.html                  # Main HTML file
+├── README.md                   # Project documentation
+└── assets/                     # All assets organized by type
+    ├── css/
+    │   └── styles.css          # Main stylesheet (20 KB)
+    ├── js/
+    │   └── script.js           # JavaScript functionality (13 KB)
+    ├── images/
+    │   ├── hero-1.jpg to hero-4.jpg       # HD slideshow backgrounds
+    │   ├── product-1.jpg to product-6.jpg # Product images
+    │   └── gallery-1.jpg to gallery-6.jpg # Gallery images
+    └── README.md               # Assets documentation
 ```
 
-## Customization Guide
+## 🚀 Setup
 
-### 1. Business Information
-Update the following in `index.html`:
-- **Phone Number**: Replace `+91 98765 43210` with your WhatsApp business number
-- **Email**: Update `info@shreeadvaya.com` with your email
-- **Location**: Change `Mumbai, Maharashtra, India` to your location
-- **Business Name**: Update `ShreeAdvaya` throughout the site
+### Prerequisites
+- Any modern web browser (Chrome, Firefox, Safari, Edge)
+- A text editor (VS Code, Sublime Text, etc.) for customization
 
-### 2. WhatsApp Integration
-In `script.js`, update the phone number:
+### Installation
+1. **Download/Clone** this repository
+2. **Open** `index.html` in your web browser
+3. That's it! The website is ready to use.
+
+### Local Development
+```bash
+# Navigate to project directory
+cd ShreeAdvaya
+
+# Open with your default browser (on Linux/Mac)
+open index.html
+
+# Or use a local server (optional)
+python -m http.server 8000
+# Then visit http://localhost:8000
+```
+
+## ⚙️ Configuration
+
+### Update Business Information
+
+#### WhatsApp Number
+1. Open `assets/js/script.js`
+2. Find line 70:
 ```javascript
-const phoneNumber = '919876543210'; // Replace with your WhatsApp number
+const phoneNumber = '919876543210'; // Replace with your number
 ```
+3. Replace with your WhatsApp business number (include country code, no + or spaces)
 
-### 3. Product Information
-Update product cards in the Products section:
-- **Product Names**: Change the product titles
-- **Prices**: Update the pricing
-- **Images**: Replace Unsplash URLs with your product images
-- **Categories**: Modify or add new product categories
+#### Contact Details
+Edit `index.html` and update:
+- Phone: `+91 98765 43210`
+- Email: `info@shreeadvaya.com`
+- Location: `Mumbai, Maharashtra, India`
 
-### 4. Images
-Replace placeholder images with your own:
-- **Hero Image**: Main showcase image
-- **About Image**: Business/workshop image
-- **Product Images**: Your saree collection photos
-- **Gallery Images**: Additional product photos
+### Customize Products
+In `index.html`, locate the Products section and update:
+- Product names
+- Prices (₹)
+- Categories (data-category attribute)
+- Images (update src paths in assets/images/)
 
-### 5. Content
-Update text content:
-- **Hero Section**: Main headline and description
-- **About Section**: Your business story and features
-- **Contact Information**: All contact details
+### Change Colors
+In `assets/css/styles.css`, update:
+- Primary gold: `#d4af37`
+- Backgrounds: `#fefbf5`, `#f8f4eb`
+- Text colors: `#1a1a1a`, `#666`
 
-### 6. Styling
-Customize colors and fonts in `styles.css`:
-- **Primary Color**: Change `#d4af37` (gold) to your brand color
-- **Background**: Modify gradient colors
-- **Fonts**: Update Google Fonts imports
+## 📱 Browser Support
 
-## Deployment
+- ✅ Chrome (latest)
+- ✅ Firefox (latest)
+- ✅ Safari (latest)
+- ✅ Edge (latest)
+- ✅ Mobile browsers (iOS Safari, Chrome Mobile)
 
-### Option 1: GitHub Pages
-1. Create a GitHub repository
-2. Upload all files to the repository
-3. Enable GitHub Pages in repository settings
-4. Your site will be available at `https://username.github.io/repository-name`
+## 🎯 Key Sections
 
-### Option 2: Netlify
-1. Go to [Netlify](https://netlify.com)
-2. Drag and drop your project folder
-3. Your site will be deployed automatically
+1. **Hero Section**: Full-screen slideshow with call-to-action buttons
+2. **About Section**: Business overview with 4 feature cards
+3. **Products Section**: Filterable product grid with 6 sarees
+4. **Gallery Section**: 6-image gallery with lightbox
+5. **Contact Section**: Contact info and quick inquiry form
+6. **Footer**: Links, categories, and social media
 
-### Option 3: Vercel
-1. Go to [Vercel](https://vercel.com)
-2. Import your project
-3. Deploy with one click
+## 📦 Total Size
 
-## Browser Support
+- **Images**: ~3.1 MB (16 files)
+- **CSS**: 20 KB
+- **JavaScript**: 13 KB
+- **HTML**: 17 KB
+- **Total**: ~3.16 MB
 
-- Chrome (latest)
-- Firefox (latest)
-- Safari (latest)
-- Edge (latest)
-- Mobile browsers (iOS Safari, Chrome Mobile)
+## 🔧 Technologies Used
 
-## Performance Tips
+- **HTML5**: Semantic markup
+- **CSS3**: Modern styling with flexbox/grid
+- **Vanilla JavaScript**: No frameworks needed
+- **Font Awesome**: Icons
+- **Google Fonts**: Playfair Display + Inter
 
-1. **Optimize Images**: Compress images before uploading
-2. **Use WebP Format**: Convert images to WebP for better performance
-3. **Minify Files**: Minify CSS and JavaScript for production
-4. **CDN**: Use a CDN for faster global delivery
+## 📄 License
 
-## SEO Features
-
-- Semantic HTML structure
-- Meta descriptions and titles
-- Alt text for all images
-- Proper heading hierarchy
-- Mobile-friendly design
-
-## Support
-
-For customization help or questions, refer to the code comments or contact your developer.
-
-## License
-
-This project is created for ShreeAdvaya. All rights reserved.
+Created for ShreeAdvaya. All rights reserved.
 
 ---
 
-**Note**: Remember to replace all placeholder content with your actual business information before going live.
+**Note**: Update all placeholder content with your actual business information before publishing.
