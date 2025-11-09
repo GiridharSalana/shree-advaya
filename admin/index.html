@@ -10,6 +10,12 @@
 
 <body>
   <!-- Include the script that builds the page and powers Decap CMS -->
+  <script>
+    // Check if user has token, if not redirect to login
+    if (!localStorage.getItem('githubToken')) {
+      window.location.href = '/admin/login.html';
+    }
+  </script>
   <script src="https://unpkg.com/decap-cms@3.1.11/dist/decap-cms.js"></script>
   <script>
     // Initialize CMS with GitHub token from localStorage
