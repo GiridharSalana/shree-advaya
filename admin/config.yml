@@ -1,10 +1,5 @@
 backend:
-  name: github
-  repo: Giridharsalana/ShreeAdvaya
-  branch: main
-  # This will be overridden by manual initialization
-  auth_type: implicit
-  app_id: none
+  name: test-repo
 
 media_folder: "assets/images"
 public_folder: "assets/images"

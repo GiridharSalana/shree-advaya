@@ -10,49 +10,7 @@
 
 <body>
   <!-- Include the script that builds the page and powers Decap CMS -->
-  <script>
-    // Check if user has token, if not redirect to login
-    const token = localStorage.getItem('githubToken');
-    if (!token) {
-      window.location.href = '/admin/login.html';
-    } else {
-      // Store token globally for CMS to use
-      window.CMS_MANUAL_INIT = true;
-      window.GITHUB_TOKEN = token;
-    }
-  </script>
   <script src="https://unpkg.com/decap-cms@3.1.11/dist/decap-cms.js"></script>
-  <script>
-    if (window.GITHUB_TOKEN) {
-      // Manually initialize CMS with token
-      CMS.init({
-        config: {
-          backend: {
-            name: 'github',
-            repo: 'Giridharsalana/ShreeAdvaya',
-            branch: 'main'
-          },
-          media_folder: 'assets/images',
-          public_folder: 'assets/images',
-          load_config_file: false
-        }
-      });
-
-      // Override the authenticator to use our token
-      CMS.registerBackendClass('github', class extends CMS.getBackend('github') {
-        constructor(config) {
-          super(config);
-          this.token = window.GITHUB_TOKEN;
-        }
-        
-        async request(path, options = {}) {
-          options.headers = options.headers || {};
-          options.headers.Authorization = `token ${this.token}`;
-          return super.request(path, options);
-        }
-      });
-    }
-  </script>
 </body>
 
 </html>
