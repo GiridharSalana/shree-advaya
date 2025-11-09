@@ -1,9 +1,5 @@
 backend:
-  name: github
-  repo: Giridharsalana/ShreeAdvaya
-  branch: main
-  # OAuth via public proxy (or set up your own)
-  base_url: https://decap-oauth-provider.vercel.app
+  name: test-repo
 
 media_folder: "assets/images"
 public_folder: "assets/images"
