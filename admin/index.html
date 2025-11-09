@@ -11,6 +11,22 @@
 <body>
   <!-- Include the script that builds the page and powers Decap CMS -->
   <script src="https://unpkg.com/decap-cms@3.1.11/dist/decap-cms.js"></script>
+  <script>
+    // Initialize CMS with GitHub token from localStorage
+    if (localStorage.getItem('githubToken')) {
+      CMS.init({
+        config: {
+          backend: {
+            name: 'github',
+            repo: 'Giridharsalana/ShreeAdvaya',
+            branch: 'main',
+            auth_type: 'token',
+            token: localStorage.getItem('githubToken')
+          }
+        }
+      });
+    }
+  </script>
 </body>
 
 </html>
