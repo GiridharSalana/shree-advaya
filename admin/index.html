@@ -16,20 +16,43 @@
     if (!token) {
       window.location.href = '/admin/login.html';
     } else {
-      // Intercept fetch to add auth token
-      const originalFetch = window.fetch;
-      window.fetch = function(...args) {
-        const url = args[0];
-        if (typeof url === 'string' && url.includes('api.github.com')) {
-          args[1] = args[1] || {};
-          args[1].headers = args[1].headers || {};
-          args[1].headers['Authorization'] = `token ${token}`;
-        }
-        return originalFetch.apply(this, args);
-      };
+      // Store token globally for CMS to use
+      window.CMS_MANUAL_INIT = true;
+      window.GITHUB_TOKEN = token;
     }
   </script>
   <script src="https://unpkg.com/decap-cms@3.1.11/dist/decap-cms.js"></script>
+  <script>
+    if (window.GITHUB_TOKEN) {
+      // Manually initialize CMS with token
+      CMS.init({
+        config: {
+          backend: {
+            name: 'github',
+            repo: 'Giridharsalana/ShreeAdvaya',
+            branch: 'main'
+          },
+          media_folder: 'assets/images',
+          public_folder: 'assets/images',
+          load_config_file: false
+        }
+      });
+
+      // Override the authenticator to use our token
+      CMS.registerBackendClass('github', class extends CMS.getBackend('github') {
+        constructor(config) {
+          super(config);
+          this.token = window.GITHUB_TOKEN;
+        }
+        
+        async request(path, options = {}) {
+          options.headers = options.headers || {};
+          options.headers.Authorization = `token ${this.token}`;
+          return super.request(path, options);
+        }
+      });
+    }
+  </script>
 </body>
 
 </html>
