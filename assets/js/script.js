@@ -175,8 +175,8 @@ async function loadContent() {
         if (phoneEl) phoneEl.textContent = phone;
         
         // Update footer contact info
-        const footerPhone = document.getElementById('footerPhone');
-        const footerEmail = document.getElementById('footerEmail');
+        const footerPhone = document.querySelector('.footer-section ul.contact-list li:nth-child(1)');
+        const footerEmail = document.querySelector('.footer-section ul.contact-list li:nth-child(2)');
         if (footerPhone) footerPhone.innerHTML = `<i class="fas fa-phone"></i> ${phone}`;
         if (footerEmail) footerEmail.innerHTML = `<i class="fas fa-envelope"></i> ${email}`;
     } catch (error) {
@@ -203,6 +203,12 @@ async function loadContent() {
         
         const phoneEl = document.getElementById('contactPhone');
         if (phoneEl) phoneEl.textContent = defaults.phone;
+        
+        // Update footer contact info
+        const footerPhone = document.getElementById('footerPhone');
+        const footerEmail = document.getElementById('footerEmail');
+        if (footerPhone) footerPhone.innerHTML = `<i class="fas fa-phone"></i> ${defaults.phone}`;
+        if (footerEmail) footerEmail.innerHTML = `<i class="fas fa-envelope"></i> ${defaults.email}`;
     }
 }
 

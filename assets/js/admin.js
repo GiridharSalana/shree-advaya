@@ -788,7 +788,7 @@ function updatePendingCount() {
     }
 }
 
-// Save all pending changes
+// Save all pending changes in a single batch commit
 async function saveAllChanges() {
     const saveBtn = document.getElementById('saveAllBtn');
     const originalText = saveBtn.innerHTML;
@@ -797,52 +797,60 @@ async function saveAllChanges() {
     saveBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Saving...';
     
     try {
-        // Save products
-        for (const item of pendingChanges.products.create) {
-            const { id, ...itemData } = item; // Remove temp ID
-            await apiCall('/products', 'POST', itemData);
-        }
-        for (const item of pendingChanges.products.update) {
-            await apiCall(`/products?id=${item.id}`, 'PUT', item);
-        }
-        for (const id of pendingChanges.products.delete) {
-            if (!id.startsWith('temp_')) {
-                await apiCall(`/products?id=${id}`, 'DELETE');
-            }
+        // Prepare batch payload
+        const batchData = {};
+        
+        // Products
+        if (pendingChanges.products.create.length > 0 || 
+            pendingChanges.products.update.length > 0 || 
+            pendingChanges.products.delete.length > 0) {
+            batchData.products = {
+                create: pendingChanges.products.create.map(item => {
+                    const { id, ...itemData } = item; // Remove temp ID
+                    return itemData;
+                }),
+                update: pendingChanges.products.update,
+                delete: pendingChanges.products.delete.filter(id => !id.startsWith('temp_'))
+            };
         }
         
-        // Save gallery
-        for (const item of pendingChanges.gallery.create) {
-            const { id, ...itemData } = item; // Remove temp ID
-            await apiCall('/gallery', 'POST', itemData);
-        }
-        for (const item of pendingChanges.gallery.update) {
-            await apiCall(`/gallery?id=${item.id}`, 'PUT', item);
-        }
-        for (const id of pendingChanges.gallery.delete) {
-            if (!id.startsWith('temp_')) {
-                await apiCall(`/gallery?id=${id}`, 'DELETE');
-            }
-        }
-        
-        // Save hero images
-        for (const item of pendingChanges.hero.create) {
-            const { id, ...itemData } = item; // Remove temp ID
-            await apiCall('/hero', 'POST', itemData);
-        }
-        for (const item of pendingChanges.hero.update) {
-            await apiCall(`/hero?id=${item.id}`, 'PUT', item);
-        }
-        for (const id of pendingChanges.hero.delete) {
-            if (!id.startsWith('temp_')) {
-                await apiCall(`/hero?id=${id}`, 'DELETE');
-            }
+        // Gallery
+        if (pendingChanges.gallery.create.length > 0 || 
+            pendingChanges.gallery.update.length > 0 || 
+            pendingChanges.gallery.delete.length > 0) {
+            batchData.gallery = {
+                create: pendingChanges.gallery.create.map(item => {
+                    const { id, ...itemData } = item; // Remove temp ID
+                    return itemData;
+                }),
+                update: pendingChanges.gallery.update,
+                delete: pendingChanges.gallery.delete.filter(id => !id.startsWith('temp_'))
+            };
         }
         
-        // Save content
+        // Hero Images
+        if (pendingChanges.hero.create.length > 0 || 
+            pendingChanges.hero.update.length > 0 || 
+            pendingChanges.hero.delete.length > 0) {
+            batchData.hero = {
+                create: pendingChanges.hero.create.map(item => {
+                    const { id, ...itemData } = item; // Remove temp ID
+                    return itemData;
+                }),
+                update: pendingChanges.hero.update,
+                delete: pendingChanges.hero.delete.filter(id => !id.startsWith('temp_'))
+            };
+        }
+        
+        // Content
         if (pendingChanges.content.update) {
-            await apiCall('/content', 'PUT', pendingChanges.content.update);
+            batchData.content = {
+                update: pendingChanges.content.update
+            };
         }
+        
+        // Send batch request
+        const result = await apiCall('/batch', 'POST', batchData);
         
         // Clear pending changes
         pendingChanges.products = { create: [], update: [], delete: [] };
@@ -851,7 +859,7 @@ async function saveAllChanges() {
         pendingChanges.content.update = null;
         
         updatePendingCount();
-        showNotification('All changes saved successfully!', 'success');
+        showNotification('All changes saved successfully in a single commit!', 'success');
         
         // Reload data to reflect changes
         await loadData();
