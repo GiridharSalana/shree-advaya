@@ -169,9 +169,18 @@ body {
     max-width: 1400px;
     margin: 0 auto;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
+    align-items: center;
+    gap: 5px;
+    flex-wrap: wrap;
+}
+
+.nav-tabs-group {
+    display: flex;
     gap: 5px;
     align-items: center;
+    flex: 1;
+    justify-content: center;
 }
 
 .nav-tab {
@@ -222,7 +231,7 @@ body {
 
 .section-header {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     margin-bottom: 30px;
 }
@@ -230,6 +239,7 @@ body {
 .section-header h2 {
     color: #2c1810;
     font-size: 1.8rem;
+    text-align: center;
 }
 
 .add-button-container {

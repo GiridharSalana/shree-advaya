@@ -32,31 +32,33 @@
         <header class="admin-header">
             <div class="header-content">
                 <h1><i class="fas fa-cog"></i> ShreeAdvaya Admin Panel</h1>
-                <div class="header-right">
-                    <button id="saveAllBtn" class="btn btn-success" style="display: none;">
-                        <i class="fas fa-save"></i> Save All Changes <span id="pendingCount" class="pending-badge">0</span>
-                    </button>
-                    <button id="logoutBtn" class="btn btn-secondary">
-                        <i class="fas fa-sign-out-alt"></i> Logout
-                    </button>
-                </div>
             </div>
         </header>
 
         <nav class="admin-nav">
             <div class="nav-container">
-                <a href="#products" class="nav-tab active" data-tab="products">
-                    <i class="fas fa-box"></i> Products
-                </a>
-                <a href="#gallery" class="nav-tab" data-tab="gallery">
-                    <i class="fas fa-images"></i> Gallery
-                </a>
-                <a href="#hero" class="nav-tab" data-tab="hero">
-                    <i class="fas fa-image"></i> Hero Images
-                </a>
-                <a href="#content" class="nav-tab" data-tab="content">
-                    <i class="fas fa-edit"></i> Content
-                </a>
+                <div class="nav-tabs-group">
+                    <a href="#products" class="nav-tab active" data-tab="products">
+                        <i class="fas fa-box"></i> Products
+                    </a>
+                    <a href="#gallery" class="nav-tab" data-tab="gallery">
+                        <i class="fas fa-images"></i> Gallery
+                    </a>
+                    <a href="#hero" class="nav-tab" data-tab="hero">
+                        <i class="fas fa-image"></i> Hero Images
+                    </a>
+                    <a href="#content" class="nav-tab" data-tab="content">
+                        <i class="fas fa-edit"></i> Content
+                    </a>
+                </div>
+                <div class="nav-buttons-group">
+                    <button id="saveAllBtn" class="nav-tab nav-button btn-success" style="display: none;">
+                        <i class="fas fa-save"></i> Save All <span id="pendingCount" class="pending-badge">0</span>
+                    </button>
+                    <button id="logoutBtn" class="nav-tab nav-button btn-secondary">
+                        <i class="fas fa-sign-out-alt"></i> Logout
+                    </button>
+                </div>
             </div>
         </nav>
 
@@ -66,12 +68,14 @@
                 <div id="productsTab" class="tab-content active">
                     <div class="section-header">
                         <h2>Manage Products</h2>
-                        <button class="btn btn-primary" onclick="openProductModal()">
-                            <i class="fas fa-plus"></i> Add Product
-                        </button>
                     </div>
                     <div id="productsList" class="items-grid">
                         <!-- Products will be loaded here -->
+                    </div>
+                    <div class="add-button-container">
+                        <button class="btn btn-primary" onclick="openProductModal()">
+                            <i class="fas fa-plus"></i> Add Product
+                        </button>
                     </div>
                 </div>
 
@@ -79,12 +83,14 @@
                 <div id="galleryTab" class="tab-content">
                     <div class="section-header">
                         <h2>Manage Gallery</h2>
-                        <button class="btn btn-primary" onclick="openGalleryModal()">
-                            <i class="fas fa-plus"></i> Add Image
-                        </button>
                     </div>
                     <div id="galleryList" class="items-grid">
                         <!-- Gallery items will be loaded here -->
+                    </div>
+                    <div class="add-button-container">
+                        <button class="btn btn-primary" onclick="openGalleryModal()">
+                            <i class="fas fa-plus"></i> Add Image
+                        </button>
                     </div>
                 </div>
 
