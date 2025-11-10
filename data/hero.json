@@ -1,0 +1,22 @@
+[
+  {
+    "id": "1",
+    "image": "assets/images/hero-1.webp",
+    "createdAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "id": "2",
+    "image": "assets/images/hero-2.webp",
+    "createdAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "id": "3",
+    "image": "assets/images/hero-3.webp",
+    "createdAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "id": "4",
+    "image": "assets/images/hero-4.webp",
+    "createdAt": "2024-01-01T00:00:00.000Z"
+  }
+]

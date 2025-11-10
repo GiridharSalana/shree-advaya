@@ -1,0 +1,56 @@
+[
+  {
+    "id": "1",
+    "name": "Traditional Silk Saree",
+    "category": "silk",
+    "price": "8999",
+    "image": "assets/images/product-1.webp",
+    "alt": "Traditional Red Silk Saree",
+    "createdAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "id": "2",
+    "name": "Handwoven Cotton Saree",
+    "category": "cotton",
+    "price": "3999",
+    "image": "assets/images/product-2.webp",
+    "alt": "Handwoven Cotton Saree",
+    "createdAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "id": "3",
+    "name": "Embroidered Designer Saree",
+    "category": "designer",
+    "price": "12999",
+    "image": "assets/images/product-3.webp",
+    "alt": "Designer Embroidered Saree",
+    "createdAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "id": "4",
+    "name": "Bridal Red & Gold Saree",
+    "category": "bridal",
+    "price": "25999",
+    "image": "assets/images/product-4.webp",
+    "alt": "Bridal Red Gold Saree",
+    "createdAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "id": "5",
+    "name": "Royal Purple Silk Saree",
+    "category": "silk",
+    "price": "9999",
+    "image": "assets/images/product-5.webp",
+    "alt": "Royal Purple Silk Saree",
+    "createdAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "id": "6",
+    "name": "Printed Cotton Saree",
+    "category": "cotton",
+    "price": "2999",
+    "image": "assets/images/product-6.webp",
+    "alt": "Printed Green Cotton Saree",
+    "createdAt": "2024-01-01T00:00:00.000Z"
+  }
+]

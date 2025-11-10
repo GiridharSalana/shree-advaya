@@ -1,0 +1,38 @@
+[
+  {
+    "id": "1",
+    "image": "assets/images/new-1.webp",
+    "alt": "Elegant Silk Saree Collection",
+    "createdAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "id": "2",
+    "image": "assets/images/new-2.webp",
+    "alt": "Designer Party Wear Saree",
+    "createdAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "id": "3",
+    "image": "assets/images/new-3.webp",
+    "alt": "Traditional Wedding Saree",
+    "createdAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "id": "4",
+    "image": "assets/images/new-4.webp",
+    "alt": "Luxury Silk Saree",
+    "createdAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "id": "5",
+    "image": "assets/images/product-5.webp",
+    "alt": "Royal Purple Designer Saree",
+    "createdAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "id": "6",
+    "image": "assets/images/product-6.webp",
+    "alt": "Contemporary Fashion Saree",
+    "createdAt": "2024-01-01T00:00:00.000Z"
+  }
+]

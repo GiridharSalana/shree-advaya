@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - ShreeAdvaya</title>
+    <link rel="stylesheet" href="assets/css/admin.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+
+<body>
+    <!-- Login Screen -->
+    <div id="loginScreen" class="login-screen">
+        <div class="login-container">
+            <div class="login-box">
+                <h1><i class="fas fa-lock"></i> Admin Login</h1>
+                <form id="loginForm">
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" required placeholder="Enter admin password">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Login</button>
+                </form>
+                <p class="error-message" id="loginError"></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin Dashboard -->
+    <div id="adminDashboard" class="admin-dashboard" style="display: none;">
+        <header class="admin-header">
+            <h1><i class="fas fa-cog"></i> ShreeAdvaya Admin Panel</h1>
+            <button id="logoutBtn" class="btn btn-secondary">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </button>
+        </header>
+
+        <div class="admin-container">
+            <nav class="admin-sidebar">
+                <ul>
+                    <li><a href="#products" class="nav-tab active" data-tab="products">
+                            <i class="fas fa-box"></i> Products
+                        </a></li>
+                    <li><a href="#gallery" class="nav-tab" data-tab="gallery">
+                            <i class="fas fa-images"></i> Gallery
+                        </a></li>
+                    <li><a href="#hero" class="nav-tab" data-tab="hero">
+                            <i class="fas fa-image"></i> Hero Images
+                        </a></li>
+                    <li><a href="#content" class="nav-tab" data-tab="content">
+                            <i class="fas fa-edit"></i> Content
+                        </a></li>
+                </ul>
+            </nav>
+
+            <main class="admin-content">
+                <!-- Products Tab -->
+                <div id="productsTab" class="tab-content active">
+                    <div class="section-header">
+                        <h2>Manage Products</h2>
+                        <button class="btn btn-primary" onclick="openProductModal()">
+                            <i class="fas fa-plus"></i> Add Product
+                        </button>
+                    </div>
+                    <div id="productsList" class="items-grid">
+                        <!-- Products will be loaded here -->
+                    </div>
+                </div>
+
+                <!-- Gallery Tab -->
+                <div id="galleryTab" class="tab-content">
+                    <div class="section-header">
+                        <h2>Manage Gallery</h2>
+                        <button class="btn btn-primary" onclick="openGalleryModal()">
+                            <i class="fas fa-plus"></i> Add Image
+                        </button>
+                    </div>
+                    <div id="galleryList" class="items-grid">
+                        <!-- Gallery items will be loaded here -->
+                    </div>
+                </div>
+
+                <!-- Hero Images Tab -->
+                <div id="heroTab" class="tab-content">
+                    <div class="section-header">
+                        <h2>Manage Hero Images</h2>
+                        <button class="btn btn-primary" onclick="openHeroModal()">
+                            <i class="fas fa-plus"></i> Add Hero Image
+                        </button>
+                    </div>
+                    <div id="heroList" class="items-grid">
+                        <!-- Hero images will be loaded here -->
+                    </div>
+                </div>
+
+                <!-- Content Tab -->
+                <div id="contentTab" class="tab-content">
+                    <div class="section-header">
+                        <h2>Edit Website Content</h2>
+                    </div>
+                    <form id="contentForm" class="content-form">
+                        <div class="form-group">
+                            <label>About Description</label>
+                            <textarea id="aboutText" rows="5" placeholder="About section text"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Contact Email</label>
+                            <input type="email" id="contactEmail" placeholder="info@shreeadvaya.com">
+                        </div>
+                        <div class="form-group">
+                            <label>Contact Phone</label>
+                            <input type="tel" id="contactPhone" placeholder="+91 98765 43210">
+                        </div>
+                        <div class="form-group">
+                            <label>WhatsApp Number</label>
+                            <input type="tel" id="whatsappNumber" placeholder="919876543210">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Save Content</button>
+                    </form>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Product Modal -->
+    <div id="productModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('productModal')">&times;</span>
+            <h2 id="productModalTitle">Add Product</h2>
+            <form id="productForm">
+                <input type="hidden" id="productId">
+                <div class="form-group">
+                    <label>Product Name *</label>
+                    <input type="text" id="productName" required>
+                </div>
+                <div class="form-group">
+                    <label>Category *</label>
+                    <select id="productCategory" required>
+                        <option value="silk">Silk Sarees</option>
+                        <option value="cotton">Cotton Sarees</option>
+                        <option value="designer">Designer Sarees</option>
+                        <option value="bridal">Bridal Sarees</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Price (₹) *</label>
+                    <input type="number" id="productPrice" required>
+                </div>
+                <div class="form-group">
+                    <label>Image URL *</label>
+                    <input type="text" id="productImage" required placeholder="assets/images/product-X.webp">
+                    <small>Or upload new image below</small>
+                </div>
+                <div class="form-group">
+                    <label>Upload Image</label>
+                    <input type="file" id="productImageUpload" accept="image/*">
+                    <div id="productImagePreview" class="image-preview"></div>
+                </div>
+                <div class="form-group">
+                    <label>Alt Text</label>
+                    <input type="text" id="productAlt" placeholder="Product description">
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-secondary" onclick="closeModal('productModal')">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Save Product</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Gallery Modal -->
+    <div id="galleryModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('galleryModal')">&times;</span>
+            <h2 id="galleryModalTitle">Add Gallery Image</h2>
+            <form id="galleryForm">
+                <input type="hidden" id="galleryId">
+                <div class="form-group">
+                    <label>Image URL *</label>
+                    <input type="text" id="galleryImage" required placeholder="assets/images/new-X.webp">
+                    <small>Or upload new image below</small>
+                </div>
+                <div class="form-group">
+                    <label>Upload Image</label>
+                    <input type="file" id="galleryImageUpload" accept="image/*">
+                    <div id="galleryImagePreview" class="image-preview"></div>
+                </div>
+                <div class="form-group">
+                    <label>Alt Text *</label>
+                    <input type="text" id="galleryAlt" required placeholder="Image description">
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-secondary" onclick="closeModal('galleryModal')">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Save Image</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Hero Modal -->
+    <div id="heroModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('heroModal')">&times;</span>
+            <h2 id="heroModalTitle">Add Hero Image</h2>
+            <form id="heroForm">
+                <input type="hidden" id="heroId">
+                <div class="form-group">
+                    <label>Image URL *</label>
+                    <input type="text" id="heroImage" required placeholder="assets/images/hero-X.webp">
+                    <small>Or upload new image below</small>
+                </div>
+                <div class="form-group">
+                    <label>Upload Image</label>
+                    <input type="file" id="heroImageUpload" accept="image/*">
+                    <div id="heroImagePreview" class="image-preview"></div>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-secondary" onclick="closeModal('heroModal')">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Save Image</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Notification -->
+    <div id="notification" class="notification"></div>
+
+    <script src="assets/js/admin.js"></script>
+</body>
+
+</html>
