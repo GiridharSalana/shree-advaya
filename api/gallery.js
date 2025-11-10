@@ -79,17 +79,30 @@ export default async function handler(req, res) {
 
         if (method === 'DELETE') {
             const { id } = req.query;
+            console.log('[DEBUG] DELETE request - ID:', id);
+            console.log('[DEBUG] Query params:', req.query);
+            
             if (!id) {
+                console.error('[DEBUG] Missing gallery item ID');
                 return res.status(400).json({ error: 'Gallery item ID is required' });
             }
+            
+            console.log('[DEBUG] Fetching gallery from GitHub...');
             const gallery = await getFileFromGitHub(GITHUB_TOKEN, GITHUB_OWNER, GITHUB_REPO, DATA_FILE);
+            console.log('[DEBUG] Current gallery items:', gallery.length);
+            console.log('[DEBUG] Looking for item with ID:', id);
+            
             const filtered = gallery.filter(g => g.id !== id);
+            console.log('[DEBUG] Filtered gallery items:', filtered.length);
             
             if (filtered.length === gallery.length) {
+                console.error('[DEBUG] Gallery item not found. Available IDs:', gallery.map(g => g.id));
                 return res.status(404).json({ error: 'Gallery item not found' });
             }
 
+            console.log('[DEBUG] Saving updated gallery to GitHub...');
             await saveFileToGitHub(GITHUB_TOKEN, GITHUB_OWNER, GITHUB_REPO, DATA_FILE, filtered);
+            console.log('[DEBUG] Gallery item deleted successfully');
             return res.status(200).json({ success: true });
         }
 

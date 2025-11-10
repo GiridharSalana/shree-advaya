@@ -142,18 +142,34 @@ async function apiCall(endpoint, method = 'GET', data = null) {
             options.body = JSON.stringify(data);
         }
 
+        console.log('[DEBUG] API Call:', {
+            endpoint: `${API_BASE}${endpoint}`,
+            method: method,
+            hasToken: !!token,
+            hasData: !!data
+        });
+        
         const response = await fetch(`${API_BASE}${endpoint}`, options);
+        
+        console.log('[DEBUG] API Response:', {
+            status: response.status,
+            statusText: response.statusText,
+            ok: response.ok
+        });
         
         // Handle 401 Unauthorized
         if (response.status === 401) {
+            console.log('[DEBUG] 401 Unauthorized - removing token');
             localStorage.removeItem(STORAGE_KEY);
             showLogin();
             throw new Error('Session expired. Please login again.');
         }
 
         const result = await response.json();
+        console.log('[DEBUG] API Response data:', result);
 
         if (!response.ok) {
+            console.error('[DEBUG] API Error response:', result);
             throw new Error(result.error || 'API request failed');
         }
 
@@ -387,14 +403,31 @@ document.getElementById('galleryForm')?.addEventListener('submit', async (e) => 
 });
 
 async function deleteGalleryItem(itemId) {
-    if (!confirm('Are you sure you want to delete this image?')) return;
+    console.log('[DEBUG] deleteGalleryItem called with ID:', itemId);
+    
+    if (!confirm('Are you sure you want to delete this image?')) {
+        console.log('[DEBUG] User cancelled deletion');
+        return;
+    }
 
     try {
-        await apiCall(`/gallery/${itemId}`, 'DELETE');
+        console.log('[DEBUG] Making DELETE request to:', `/api/gallery/${itemId}`);
+        const token = localStorage.getItem(STORAGE_KEY);
+        console.log('[DEBUG] Token exists:', !!token);
+        
+        const result = await apiCall(`/gallery/${itemId}`, 'DELETE');
+        console.log('[DEBUG] Delete response:', result);
+        
         showNotification('Gallery image deleted', 'success');
         loadGallery();
     } catch (error) {
-        showNotification('Error deleting gallery image', 'error');
+        console.error('[DEBUG] Error deleting gallery item:', error);
+        console.error('[DEBUG] Error details:', {
+            message: error.message,
+            stack: error.stack,
+            name: error.name
+        });
+        showNotification('Error deleting gallery image: ' + error.message, 'error');
     }
 }
 
