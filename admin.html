@@ -30,10 +30,16 @@
     <!-- Admin Dashboard -->
     <div id="adminDashboard" class="admin-dashboard" style="display: none;">
         <header class="admin-header">
-            <div class="header-left">
+            <div class="header-content">
                 <h1><i class="fas fa-cog"></i> ShreeAdvaya Admin Panel</h1>
+                <button id="logoutBtn" class="btn btn-secondary">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </button>
             </div>
-            <nav class="admin-nav">
+        </header>
+
+        <nav class="admin-nav">
+            <div class="nav-container">
                 <a href="#products" class="nav-tab active" data-tab="products">
                     <i class="fas fa-box"></i> Products
                 </a>
@@ -46,13 +52,8 @@
                 <a href="#content" class="nav-tab" data-tab="content">
                     <i class="fas fa-edit"></i> Content
                 </a>
-            </nav>
-            <div class="header-right">
-                <button id="logoutBtn" class="btn btn-secondary">
-                    <i class="fas fa-sign-out-alt"></i> Logout
-                </button>
             </div>
-        </header>
+        </nav>
 
         <div class="admin-container">
             <main class="admin-content">
