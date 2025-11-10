@@ -478,35 +478,39 @@ function initDOM() {
                 // Add active class to clicked button
                 btn.classList.add("active");
 
-    const category = btn.getAttribute("data-category");
+                const category = btn.getAttribute("data-category");
 
-    productCards.forEach((card, index) => {
-      if (
-        category === "all" ||
-        card.getAttribute("data-category") === category
-      ) {
-        card.style.display = "block";
-        card.style.opacity = "0";
-        card.style.transform = "translateY(30px)";
+                if (productCards && productCards.length > 0) {
+                    productCards.forEach((card, index) => {
+                        if (
+                            category === "all" ||
+                            card.getAttribute("data-category") === category
+                        ) {
+                            card.style.display = "block";
+                            card.style.opacity = "0";
+                            card.style.transform = "translateY(30px)";
 
-        // Animate in with stagger effect
-        setTimeout(() => {
-          card.style.transition =
-            "opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1), transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)";
-          card.style.opacity = "1";
-          card.style.transform = "translateY(0)";
-        }, index * 80);
-      } else {
-        card.style.transition = "opacity 0.3s ease, transform 0.3s ease";
-        card.style.opacity = "0";
-        card.style.transform = "translateY(20px)";
-        setTimeout(() => {
-          card.style.display = "none";
-        }, 300);
-      }
-    });
-  });
-});
+                            // Animate in with stagger effect
+                            setTimeout(() => {
+                                card.style.transition =
+                                    "opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1), transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)";
+                                card.style.opacity = "1";
+                                card.style.transform = "translateY(0)";
+                            }, index * 80);
+                        } else {
+                            card.style.transition = "opacity 0.3s ease, transform 0.3s ease";
+                            card.style.opacity = "0";
+                            card.style.transform = "translateY(20px)";
+                            setTimeout(() => {
+                                card.style.display = "none";
+                            }, 300);
+                        }
+                    });
+                }
+            });
+        });
+    }
+}
 
 // WhatsApp Integration
 function openWhatsApp(productName = "") {
