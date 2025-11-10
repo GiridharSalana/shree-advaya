@@ -181,12 +181,34 @@ async function apiCall(endpoint, method = 'GET', data = null) {
             throw new Error('Session expired. Please login again.');
         }
 
-        const result = await response.json();
+        // Check if response is JSON
+        const contentType = response.headers.get('content-type');
+        let result;
+        
+        if (contentType && contentType.includes('application/json')) {
+            try {
+                const text = await response.text();
+                console.log('[DEBUG] Response text:', text.substring(0, 200)); // Log first 200 chars
+                if (!text || text.trim() === '') {
+                    throw new Error('Empty response from server');
+                }
+                result = JSON.parse(text);
+            } catch (parseError) {
+                console.error('[DEBUG] JSON Parse Error:', parseError);
+                console.error('[DEBUG] Response was:', await response.clone().text());
+                throw new Error('Invalid JSON response from server: ' + parseError.message);
+            }
+        } else {
+            const text = await response.text();
+            console.error('[DEBUG] Non-JSON response:', text.substring(0, 500));
+            throw new Error(`Server error: ${response.status} ${response.statusText}. Response: ${text.substring(0, 100)}`);
+        }
+        
         console.log('[DEBUG] API Response data:', result);
 
         if (!response.ok) {
             console.error('[DEBUG] API Error response:', result);
-            throw new Error(result.error || 'API request failed');
+            throw new Error(result.error || `API request failed: ${response.status}`);
         }
 
         return result;
