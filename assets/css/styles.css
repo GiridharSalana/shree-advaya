@@ -483,10 +483,11 @@ h6 {
 }
 
 .products-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 300px));
+    display: flex;
+    flex-wrap: wrap;
     gap: 2rem;
     justify-content: center;
+    align-items: flex-start;
 }
 
 .product-card {
@@ -1110,9 +1111,11 @@ h6 {
     }
 
     .products-grid {
-        grid-template-columns: repeat(auto-fit, minmax(280px, 280px));
-        justify-content: center;
-        justify-items: center;
+        gap: 1.5rem;
+    }
+    
+    .product-card {
+        max-width: 280px;
     }
 
     .gallery-grid {
