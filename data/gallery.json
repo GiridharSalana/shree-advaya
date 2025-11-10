@@ -28,11 +28,5 @@
     "image": "assets/images/product-5.webp",
     "alt": "Royal Purple Designer Saree",
     "createdAt": "2024-01-01T00:00:00.000Z"
-  },
-  {
-    "id": "6",
-    "image": "assets/images/product-6.webp",
-    "alt": "Contemporary Fashion Saree",
-    "createdAt": "2024-01-01T00:00:00.000Z"
   }
 ]
