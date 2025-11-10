@@ -34,23 +34,5 @@
     "image": "assets/images/product-4.webp",
     "alt": "Bridal Red Gold Saree",
     "createdAt": "2024-01-01T00:00:00.000Z"
-  },
-  {
-    "id": "5",
-    "name": "Royal Purple Silk Saree",
-    "category": "silk",
-    "price": "9999",
-    "image": "assets/images/product-5.webp",
-    "alt": "Royal Purple Silk Saree",
-    "createdAt": "2024-01-01T00:00:00.000Z"
-  },
-  {
-    "id": "6",
-    "name": "Printed Cotton Saree",
-    "category": "cotton",
-    "price": "2999",
-    "image": "assets/images/product-6.webp",
-    "alt": "Printed Green Cotton Saree",
-    "createdAt": "2024-01-01T00:00:00.000Z"
   }
 ]
