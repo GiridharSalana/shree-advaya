@@ -116,6 +116,47 @@
                         <h2>Edit Website Content</h2>
                     </div>
                     <form id="contentForm" class="content-form">
+                        <h3 style="margin-bottom: 20px; color: #2c1810; border-bottom: 2px solid #d4af37; padding-bottom: 10px;">Hero Section</h3>
+                        <div class="form-group">
+                            <label>Hero Title</label>
+                            <input type="text" id="heroTitle" placeholder="Elegance Redefined">
+                        </div>
+                        <div class="form-group">
+                            <label>Hero Subtitle</label>
+                            <textarea id="heroSubtitle" rows="3" placeholder="Discover our exquisite collection..."></textarea>
+                        </div>
+
+                        <h3 style="margin: 30px 0 20px 0; color: #2c1810; border-bottom: 2px solid #d4af37; padding-bottom: 10px;">Features Section</h3>
+                        <div id="featuresForm">
+                            <!-- Features will be dynamically added here -->
+                        </div>
+                        <button type="button" class="btn btn-secondary" onclick="addFeatureField()" style="margin-bottom: 25px;">
+                            <i class="fas fa-plus"></i> Add Feature
+                        </button>
+
+                        <h3 style="margin: 30px 0 20px 0; color: #2c1810; border-bottom: 2px solid #d4af37; padding-bottom: 10px;">Social Media Links</h3>
+                        <div class="form-group">
+                            <label>Facebook URL</label>
+                            <input type="url" id="socialFacebook" placeholder="https://facebook.com/yourpage">
+                        </div>
+                        <div class="form-group">
+                            <label>Instagram URL</label>
+                            <input type="url" id="socialInstagram" placeholder="https://instagram.com/yourpage">
+                        </div>
+                        <div class="form-group">
+                            <label>Twitter/X URL</label>
+                            <input type="url" id="socialTwitter" placeholder="https://twitter.com/yourpage">
+                        </div>
+                        <div class="form-group">
+                            <label>YouTube URL</label>
+                            <input type="url" id="socialYouTube" placeholder="https://youtube.com/yourchannel">
+                        </div>
+                        <div class="form-group">
+                            <label>Pinterest URL</label>
+                            <input type="url" id="socialPinterest" placeholder="https://pinterest.com/yourpage">
+                        </div>
+
+                        <h3 style="margin: 30px 0 20px 0; color: #2c1810; border-bottom: 2px solid #d4af37; padding-bottom: 10px;">Contact Information</h3>
                         <div class="form-group">
                             <label>About Description</label>
                             <textarea id="aboutText" rows="5" placeholder="About section text"></textarea>

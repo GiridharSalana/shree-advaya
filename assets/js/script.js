@@ -131,7 +131,7 @@ async function loadHeroImages() {
     }
 }
 
-// Load Content (About, Contact Info)
+// Load Content (About, Contact Info, Hero, Features, Social)
 async function loadContent() {
     try {
         const response = await fetch(`${API_BASE}/content`);
@@ -140,11 +140,101 @@ async function loadContent() {
         
         // Default values
         const defaults = {
+            hero: {
+                title: 'Elegance Redefined',
+                subtitle: 'Discover our exquisite collection of premium sarees that blend traditional craftsmanship with modern sophistication'
+            },
+            features: [
+                { icon: 'fas fa-gem', title: 'Premium Quality', description: 'Handpicked finest materials and craftsmanship' },
+                { icon: 'fas fa-palette', title: 'Unique Designs', description: 'Exclusive patterns and traditional motifs' },
+                { icon: 'fas fa-shipping-fast', title: 'Fast Delivery', description: 'Secure and timely delivery across India' },
+                { icon: 'fas fa-certificate', title: 'Authentic Collection', description: '100% genuine and certified sarees' }
+            ],
+            social: {
+                facebook: '',
+                instagram: '',
+                twitter: '',
+                youtube: '',
+                pinterest: ''
+            },
             whatsapp: '919876543210',
             email: 'info@shreeadvaya.com',
             phone: '+91 98765 43210',
             about: 'ShreeAdvaya represents the perfect fusion of traditional Indian craftsmanship and contemporary design. We curate the finest collection of sarees, each piece telling a story of heritage, elegance, and timeless beauty. Our commitment to quality and authenticity ensures that every saree in our collection is a masterpiece, carefully selected to celebrate the rich cultural heritage of India while meeting modern fashion sensibilities.'
         };
+        
+        // Update hero section
+        const heroTitle = document.getElementById('heroTitle');
+        const heroSubtitle = document.getElementById('heroSubtitle');
+        if (heroTitle) heroTitle.textContent = content.hero?.title || defaults.hero.title;
+        if (heroSubtitle) heroSubtitle.textContent = content.hero?.subtitle || defaults.hero.subtitle;
+        
+        // Update features section
+        const featuresContainer = document.getElementById('featuresContainer');
+        if (featuresContainer) {
+            const features = content.features && content.features.length > 0 ? content.features : defaults.features;
+            featuresContainer.innerHTML = '';
+            features.forEach(feature => {
+                const featureDiv = document.createElement('div');
+                featureDiv.className = 'feature';
+                featureDiv.innerHTML = `
+                    <i class="${feature.icon || 'fas fa-star'}"></i>
+                    <h3>${feature.title || ''}</h3>
+                    <p>${feature.description || ''}</p>
+                `;
+                featuresContainer.appendChild(featureDiv);
+            });
+        }
+        
+        // Update social links
+        const social = content.social || defaults.social;
+        const socialFacebook = document.getElementById('socialFacebook');
+        const socialInstagram = document.getElementById('socialInstagram');
+        const socialTwitter = document.getElementById('socialTwitter');
+        const socialYouTube = document.getElementById('socialYouTube');
+        const socialPinterest = document.getElementById('socialPinterest');
+        
+        if (socialFacebook && social.facebook) {
+            socialFacebook.href = social.facebook;
+            socialFacebook.style.display = 'inline-flex';
+        } else if (socialFacebook) {
+            socialFacebook.style.display = 'none';
+        }
+        
+        if (socialInstagram && social.instagram) {
+            socialInstagram.href = social.instagram;
+            socialInstagram.style.display = 'inline-flex';
+        } else if (socialInstagram) {
+            socialInstagram.style.display = 'none';
+        }
+        
+        if (socialTwitter && social.twitter) {
+            socialTwitter.href = social.twitter;
+            socialTwitter.style.display = 'inline-flex';
+        } else if (socialTwitter) {
+            socialTwitter.style.display = 'none';
+        }
+        
+        if (socialYouTube && social.youtube) {
+            socialYouTube.href = social.youtube;
+            socialYouTube.style.display = 'inline-flex';
+        } else if (socialYouTube) {
+            socialYouTube.style.display = 'none';
+        }
+        
+        if (socialPinterest && social.pinterest) {
+            socialPinterest.href = social.pinterest;
+            socialPinterest.style.display = 'inline-flex';
+        } else if (socialPinterest) {
+            socialPinterest.style.display = 'none';
+        }
+        
+        // Update WhatsApp link (use WhatsApp number for WhatsApp social link)
+        const whatsapp = content.whatsapp || defaults.whatsapp;
+        const whatsappSocial = document.querySelector('#socialLinks a[aria-label="WhatsApp"]');
+        if (whatsappSocial && whatsapp) {
+            whatsappSocial.href = `https://wa.me/${whatsapp}`;
+        }
         
         // Update about description
         const aboutDesc = document.getElementById('aboutDescription');
@@ -153,7 +243,6 @@ async function loadContent() {
         }
         
         // Update contact information
-        const whatsapp = content.whatsapp || defaults.whatsapp;
         const whatsappEl = document.getElementById('whatsappNumber');
         const whatsappLink = document.getElementById('whatsappLink');
         if (whatsappEl) {
@@ -183,11 +272,41 @@ async function loadContent() {
         console.error('Error loading content:', error);
         // Set defaults on error
         const defaults = {
+            hero: {
+                title: 'Elegance Redefined',
+                subtitle: 'Discover our exquisite collection of premium sarees that blend traditional craftsmanship with modern sophistication'
+            },
+            features: [
+                { icon: 'fas fa-gem', title: 'Premium Quality', description: 'Handpicked finest materials and craftsmanship' },
+                { icon: 'fas fa-palette', title: 'Unique Designs', description: 'Exclusive patterns and traditional motifs' },
+                { icon: 'fas fa-shipping-fast', title: 'Fast Delivery', description: 'Secure and timely delivery across India' },
+                { icon: 'fas fa-certificate', title: 'Authentic Collection', description: '100% genuine and certified sarees' }
+            ],
             whatsapp: '919876543210',
             email: 'info@shreeadvaya.com',
             phone: '+91 98765 43210',
             about: 'ShreeAdvaya represents the perfect fusion of traditional Indian craftsmanship and contemporary design. We curate the finest collection of sarees, each piece telling a story of heritage, elegance, and timeless beauty. Our commitment to quality and authenticity ensures that every saree in our collection is a masterpiece, carefully selected to celebrate the rich cultural heritage of India while meeting modern fashion sensibilities.'
         };
+        
+        const heroTitle = document.getElementById('heroTitle');
+        const heroSubtitle = document.getElementById('heroSubtitle');
+        if (heroTitle) heroTitle.textContent = defaults.hero.title;
+        if (heroSubtitle) heroSubtitle.textContent = defaults.hero.subtitle;
+        
+        const featuresContainer = document.getElementById('featuresContainer');
+        if (featuresContainer) {
+            featuresContainer.innerHTML = '';
+            defaults.features.forEach(feature => {
+                const featureDiv = document.createElement('div');
+                featureDiv.className = 'feature';
+                featureDiv.innerHTML = `
+                    <i class="${feature.icon}"></i>
+                    <h3>${feature.title}</h3>
+                    <p>${feature.description}</p>
+                `;
+                featuresContainer.appendChild(featureDiv);
+            });
+        }
         
         const aboutDesc = document.getElementById('aboutDescription');
         if (aboutDesc) aboutDesc.textContent = defaults.about;

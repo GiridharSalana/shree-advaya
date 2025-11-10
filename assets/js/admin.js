@@ -685,6 +685,29 @@ async function loadContent() {
         // Show pending changes if any, otherwise show original
         const displayContent = pendingChanges.content.update || originalData.content;
         
+        // Hero section
+        if (displayContent.hero) {
+            if (displayContent.hero.title) document.getElementById('heroTitle').value = displayContent.hero.title;
+            if (displayContent.hero.subtitle) document.getElementById('heroSubtitle').value = displayContent.hero.subtitle;
+        }
+        
+        // Features section
+        if (displayContent.features && Array.isArray(displayContent.features)) {
+            renderFeaturesForm(displayContent.features);
+        } else {
+            renderFeaturesForm([]);
+        }
+        
+        // Social links
+        if (displayContent.social) {
+            if (displayContent.social.facebook) document.getElementById('socialFacebook').value = displayContent.social.facebook;
+            if (displayContent.social.instagram) document.getElementById('socialInstagram').value = displayContent.social.instagram;
+            if (displayContent.social.twitter) document.getElementById('socialTwitter').value = displayContent.social.twitter;
+            if (displayContent.social.youtube) document.getElementById('socialYouTube').value = displayContent.social.youtube;
+            if (displayContent.social.pinterest) document.getElementById('socialPinterest').value = displayContent.social.pinterest;
+        }
+        
+        // Contact information
         if (displayContent.about) document.getElementById('aboutText').value = displayContent.about;
         if (displayContent.email) document.getElementById('contactEmail').value = displayContent.email;
         if (displayContent.phone) document.getElementById('contactPhone').value = displayContent.phone;
@@ -694,14 +717,85 @@ async function loadContent() {
     }
 }
 
+function renderFeaturesForm(features) {
+    const container = document.getElementById('featuresForm');
+    container.innerHTML = '';
+    
+    features.forEach((feature, index) => {
+        const featureDiv = document.createElement('div');
+        featureDiv.className = 'feature-form-item';
+        featureDiv.style.cssText = 'border: 2px solid #e0e0e0; padding: 20px; margin-bottom: 15px; border-radius: 8px; background: #f9f9f9;';
+        featureDiv.innerHTML = `
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                <h4 style="margin: 0; color: #2c1810;">Feature ${index + 1}</h4>
+                <button type="button" class="btn btn-danger" onclick="removeFeatureField(this)" style="padding: 5px 15px; font-size: 0.85rem;">
+                    <i class="fas fa-trash"></i> Remove
+                </button>
+            </div>
+            <div class="form-group">
+                <label>Icon Class (Font Awesome)</label>
+                <input type="text" class="feature-icon" value="${feature.icon || ''}" placeholder="fas fa-gem">
+                <small>Example: fas fa-gem, fas fa-palette, fas fa-shipping-fast</small>
+            </div>
+            <div class="form-group">
+                <label>Title</label>
+                <input type="text" class="feature-title" value="${feature.title || ''}" placeholder="Premium Quality">
+            </div>
+            <div class="form-group">
+                <label>Description</label>
+                <textarea class="feature-description" rows="2" placeholder="Handpicked finest materials...">${feature.description || ''}</textarea>
+            </div>
+        `;
+        container.appendChild(featureDiv);
+    });
+}
+
+function addFeatureField() {
+    const container = document.getElementById('featuresForm');
+    const features = getFeaturesFromForm();
+    features.push({ icon: '', title: '', description: '' });
+    renderFeaturesForm(features);
+}
+
+function removeFeatureField(button) {
+    const featureDiv = button.closest('.feature-form-item');
+    featureDiv.remove();
+}
+
+function getFeaturesFromForm() {
+    const features = [];
+    const featureItems = document.querySelectorAll('.feature-form-item');
+    featureItems.forEach(item => {
+        const icon = item.querySelector('.feature-icon').value.trim();
+        const title = item.querySelector('.feature-title').value.trim();
+        const description = item.querySelector('.feature-description').value.trim();
+        if (icon || title || description) {
+            features.push({ icon, title, description });
+        }
+    });
+    return features;
+}
+
 document.getElementById('contentForm')?.addEventListener('submit', async (e) => {
     e.preventDefault();
     
     const contentData = {
-        about: document.getElementById('aboutText').value,
-        email: document.getElementById('contactEmail').value,
-        phone: document.getElementById('contactPhone').value,
-        whatsapp: document.getElementById('whatsappNumber').value
+        hero: {
+            title: document.getElementById('heroTitle').value.trim(),
+            subtitle: document.getElementById('heroSubtitle').value.trim()
+        },
+        features: getFeaturesFromForm(),
+        social: {
+            facebook: document.getElementById('socialFacebook').value.trim(),
+            instagram: document.getElementById('socialInstagram').value.trim(),
+            twitter: document.getElementById('socialTwitter').value.trim(),
+            youtube: document.getElementById('socialYouTube').value.trim(),
+            pinterest: document.getElementById('socialPinterest').value.trim()
+        },
+        about: document.getElementById('aboutText').value.trim(),
+        email: document.getElementById('contactEmail').value.trim(),
+        phone: document.getElementById('contactPhone').value.trim(),
+        whatsapp: document.getElementById('whatsappNumber').value.trim()
     };
 
     try {

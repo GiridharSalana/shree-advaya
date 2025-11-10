@@ -1,5 +1,38 @@
 {
-  "about": "ShreeAdvaya represents the perfect fusion of traditional Indian craftsmanship and contemporary design. We curate the finest collection of sarees, each piece telling a story of heritage, elegance, and timeless beauty. Our commitment to quality and authenticity ensures that every saree in our collection is a masterpiece, carefully selected to celebrate the rich cultural heritage of India while meeting modern fashion sensibilities..",
+  "hero": {
+    "title": "Elegance Redefined",
+    "subtitle": "Discover our exquisite collection of premium sarees that blend traditional craftsmanship with modern sophistication"
+  },
+  "features": [
+    {
+      "icon": "fas fa-gem",
+      "title": "Premium Quality",
+      "description": "Handpicked finest materials and craftsmanship"
+    },
+    {
+      "icon": "fas fa-palette",
+      "title": "Unique Designs",
+      "description": "Exclusive patterns and traditional motifs"
+    },
+    {
+      "icon": "fas fa-shipping-fast",
+      "title": "Fast Delivery",
+      "description": "Secure and timely delivery across India"
+    },
+    {
+      "icon": "fas fa-certificate",
+      "title": "Authentic Collection",
+      "description": "100% genuine and certified sarees"
+    }
+  ],
+  "social": {
+    "facebook": "",
+    "instagram": "",
+    "twitter": "",
+    "youtube": "",
+    "pinterest": ""
+  },
+  "about": "ShreeAdvaya represents the perfect fusion of traditional Indian craftsmanship and contemporary design. We curate the finest collection of sarees, each piece telling a story of heritage, elegance, and timeless beauty. Our commitment to quality and authenticity ensures that every saree in our collection is a masterpiece, carefully selected to celebrate the rich cultural heritage of India while meeting modern fashion sensibilities.",
   "email": "info@shreeadvaya.com",
   "phone": "+91 9876579815",
   "whatsapp": "919876579815"
