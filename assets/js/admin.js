@@ -311,6 +311,7 @@ function openProductModal(productId = null) {
 
     form.reset();
     document.getElementById('productImagePreview').innerHTML = '';
+    document.getElementById('productImageUpload').value = ''; // Clear file input
 
     if (productId) {
         title.textContent = 'Edit Product';
@@ -349,11 +350,32 @@ document.getElementById('productForm')?.addEventListener('submit', async (e) => 
     e.preventDefault();
     
     const productId = document.getElementById('productId').value;
+    const imageUrl = document.getElementById('productImage').value.trim();
+    const imageFile = document.getElementById('productImageUpload').files[0];
+    
+    // Validate that either URL or file is provided
+    // Note: If imageFile exists (user uploaded a file), validation passes even if imageUrl is empty
+    // The URL field is NOT required when uploading a file
+    if (!imageUrl && !imageFile) {
+        showNotification('Please provide either an image URL or upload an image file', 'error');
+        return;
+    }
+    
+    // Prioritize uploaded file over URL if both are provided
+    let finalImageUrl = imageUrl;
+    if (imageFile) {
+        finalImageUrl = await new Promise((resolve) => {
+            const reader = new FileReader();
+            reader.onload = (e) => resolve(e.target.result);
+            reader.readAsDataURL(imageFile);
+        });
+    }
+    
     const productData = {
         name: document.getElementById('productName').value,
         category: document.getElementById('productCategory').value,
         price: document.getElementById('productPrice').value,
-        image: document.getElementById('productImage').value,
+        image: finalImageUrl,
         alt: document.getElementById('productAlt').value
     };
 
@@ -478,10 +500,13 @@ function openGalleryModal(itemId = null) {
 
     form.reset();
     document.getElementById('galleryImagePreview').innerHTML = '';
+    document.getElementById('galleryImageUpload').value = ''; // Clear file input
 
     if (itemId) {
         title.textContent = 'Edit Gallery Image';
         document.getElementById('galleryId').value = itemId;
+        // Load gallery data
+        loadGalleryData(itemId);
     } else {
         title.textContent = 'Add Gallery Image';
         document.getElementById('galleryId').value = '';
@@ -490,12 +515,50 @@ function openGalleryModal(itemId = null) {
     modal.classList.add('active');
 }
 
+async function loadGalleryData(itemId) {
+    try {
+        const displayGallery = getDisplayGallery();
+        const item = displayGallery.find(g => g.id === itemId);
+        
+        if (!item) {
+            showNotification('Gallery item not found', 'error');
+            return;
+        }
+        
+        document.getElementById('galleryImage').value = item.image;
+        document.getElementById('galleryAlt').value = item.alt || '';
+    } catch (error) {
+        showNotification('Error loading gallery item', 'error');
+    }
+}
+
 document.getElementById('galleryForm')?.addEventListener('submit', async (e) => {
     e.preventDefault();
     
     const itemId = document.getElementById('galleryId').value;
+    const imageUrl = document.getElementById('galleryImage').value.trim();
+    const imageFile = document.getElementById('galleryImageUpload').files[0];
+    
+    // Validate that either URL or file is provided
+    // Note: If imageFile exists (user uploaded a file), validation passes even if imageUrl is empty
+    // The URL field is NOT required when uploading a file
+    if (!imageUrl && !imageFile) {
+        showNotification('Please provide either an image URL or upload an image file', 'error');
+        return;
+    }
+    
+    // Prioritize uploaded file over URL if both are provided
+    let finalImageUrl = imageUrl;
+    if (imageFile) {
+        finalImageUrl = await new Promise((resolve) => {
+            const reader = new FileReader();
+            reader.onload = (e) => resolve(e.target.result);
+            reader.readAsDataURL(imageFile);
+        });
+    }
+    
     const galleryData = {
-        image: document.getElementById('galleryImage').value,
+        image: finalImageUrl,
         alt: document.getElementById('galleryAlt').value
     };
 
@@ -613,10 +676,13 @@ function openHeroModal(itemId = null) {
 
     form.reset();
     document.getElementById('heroImagePreview').innerHTML = '';
+    document.getElementById('heroImageUpload').value = ''; // Clear file input
 
     if (itemId) {
         title.textContent = 'Edit Hero Image';
         document.getElementById('heroId').value = itemId;
+        // Load hero data
+        loadHeroData(itemId);
     } else {
         title.textContent = 'Add Hero Image';
         document.getElementById('heroId').value = '';
@@ -625,12 +691,49 @@ function openHeroModal(itemId = null) {
     modal.classList.add('active');
 }
 
+async function loadHeroData(itemId) {
+    try {
+        const displayHeroes = getDisplayHeroes();
+        const item = displayHeroes.find(h => h.id === itemId);
+        
+        if (!item) {
+            showNotification('Hero image not found', 'error');
+            return;
+        }
+        
+        document.getElementById('heroImage').value = item.image;
+    } catch (error) {
+        showNotification('Error loading hero image', 'error');
+    }
+}
+
 document.getElementById('heroForm')?.addEventListener('submit', async (e) => {
     e.preventDefault();
     
     const itemId = document.getElementById('heroId').value;
+    const imageUrl = document.getElementById('heroImage').value.trim();
+    const imageFile = document.getElementById('heroImageUpload').files[0];
+    
+    // Validate that either URL or file is provided
+    // Note: If imageFile exists (user uploaded a file), validation passes even if imageUrl is empty
+    // The URL field is NOT required when uploading a file
+    if (!imageUrl && !imageFile) {
+        showNotification('Please provide either an image URL or upload an image file', 'error');
+        return;
+    }
+    
+    // Prioritize uploaded file over URL if both are provided
+    let finalImageUrl = imageUrl;
+    if (imageFile) {
+        finalImageUrl = await new Promise((resolve) => {
+            const reader = new FileReader();
+            reader.onload = (e) => resolve(e.target.result);
+            reader.readAsDataURL(imageFile);
+        });
+    }
+    
     const heroData = {
-        image: document.getElementById('heroImage').value
+        image: finalImageUrl
     };
 
     try {
@@ -839,10 +942,26 @@ function handleImagePreview(event, previewId, inputId) {
         reader.onload = (e) => {
             const preview = document.getElementById(previewId);
             preview.innerHTML = `<img src="${e.target.result}" alt="Preview">`;
-            // Note: For actual upload, you'd need to convert to base64 or upload to a service
-            // For now, we'll just show preview
+            // Auto-fill the URL field with the base64 data URL
+            const urlInput = document.getElementById(inputId);
+            if (urlInput) {
+                urlInput.value = e.target.result;
+                // Visual feedback: mark the field as auto-filled
+                urlInput.style.backgroundColor = '#e8f5e9';
+                setTimeout(() => {
+                    urlInput.style.backgroundColor = '';
+                }, 2000);
+            }
         };
         reader.readAsDataURL(file);
+    } else {
+        // Clear preview and reset URL field if file is removed
+        const preview = document.getElementById(previewId);
+        if (preview) preview.innerHTML = '';
+        const urlInput = document.getElementById(inputId);
+        if (urlInput && !urlInput.value.startsWith('data:')) {
+            urlInput.value = '';
+        }
     }
 }
 
