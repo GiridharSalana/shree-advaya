@@ -125,7 +125,19 @@
                         <h2>Edit Website Content</h2>
                     </div>
                     <form id="contentForm" class="content-form">
-                        <h3 style="margin-bottom: 20px; color: #2c1810; border-bottom: 2px solid #d4af37; padding-bottom: 10px;">Hero Section</h3>
+                        <h3 style="margin-bottom: 20px; color: #2c1810; border-bottom: 2px solid #d4af37; padding-bottom: 10px;">Logo</h3>
+                        <div class="form-group">
+                            <label>Logo URL</label>
+                            <input type="text" id="siteLogoUrl" placeholder="assets/images/logo.svg">
+                            <small>Or upload new logo below (URL will be auto-filled)</small>
+                        </div>
+                        <div class="form-group">
+                            <label>Upload Logo</label>
+                            <input type="file" id="logoUpload" accept="image/*">
+                            <div id="logoPreview" class="image-preview"></div>
+                        </div>
+
+                        <h3 style="margin: 30px 0 20px 0; color: #2c1810; border-bottom: 2px solid #d4af37; padding-bottom: 10px;">Hero Section</h3>
                         <div class="form-group">
                             <label>Hero Title</label>
                             <input type="text" id="heroTitle" placeholder="Elegance Redefined">

@@ -847,6 +847,16 @@ async function loadContent() {
         // Show pending changes if any, otherwise show original
         const displayContent = pendingChanges.content.update || originalData.content;
         
+        // Logo
+        if (displayContent.logo) {
+            document.getElementById('siteLogoUrl').value = displayContent.logo;
+            // Show preview
+            const logoPreview = document.getElementById('logoPreview');
+            if (logoPreview) {
+                logoPreview.innerHTML = `<img src="${displayContent.logo}" alt="Logo Preview" style="max-width: 200px; max-height: 100px; object-fit: contain;">`;
+            }
+        }
+        
         // Hero section
         if (displayContent.hero) {
             if (displayContent.hero.title) document.getElementById('heroTitle').value = displayContent.hero.title;
@@ -941,7 +951,21 @@ function getFeaturesFromForm() {
 document.getElementById('contentForm')?.addEventListener('submit', async (e) => {
     e.preventDefault();
     
+    const logoUrl = document.getElementById('siteLogoUrl').value.trim();
+    const logoFile = document.getElementById('logoUpload').files[0];
+    
+    // Handle logo - prioritize uploaded file over URL if both are provided
+    let finalLogoUrl = logoUrl;
+    if (logoFile) {
+        finalLogoUrl = await new Promise((resolve) => {
+            const reader = new FileReader();
+            reader.onload = (e) => resolve(e.target.result);
+            reader.readAsDataURL(logoFile);
+        });
+    }
+    
     const contentData = {
+        logo: finalLogoUrl || 'assets/images/logo.svg', // Default fallback
         hero: {
             title: document.getElementById('heroTitle').value.trim(),
             subtitle: document.getElementById('heroSubtitle').value.trim()
@@ -992,6 +1016,10 @@ document.getElementById('galleryImageUpload')?.addEventListener('change', (e) =>
 
 document.getElementById('heroImageUpload')?.addEventListener('change', (e) => {
     handleImagePreview(e, 'heroImagePreview', 'heroImage');
+});
+
+document.getElementById('logoUpload')?.addEventListener('change', (e) => {
+    handleImagePreview(e, 'logoPreview', 'siteLogoUrl');
 });
 
 function handleImagePreview(event, previewId, inputId) {

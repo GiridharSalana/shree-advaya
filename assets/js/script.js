@@ -181,6 +181,7 @@ async function loadContent() {
         
         // Default values
         const defaults = {
+            logo: 'assets/images/logo.svg',
             hero: {
                 title: 'Elegance Redefined',
                 subtitle: 'Discover our exquisite collection of premium sarees that blend traditional craftsmanship with modern sophistication'
@@ -203,6 +204,17 @@ async function loadContent() {
             phone: '+91 98765 43210',
             about: 'ShreeAdvaya represents the perfect fusion of traditional Indian craftsmanship and contemporary design. We curate the finest collection of sarees, each piece telling a story of heritage, elegance, and timeless beauty. Our commitment to quality and authenticity ensures that every saree in our collection is a masterpiece, carefully selected to celebrate the rich cultural heritage of India while meeting modern fashion sensibilities.'
         };
+        
+        // Update logo
+        const logo = content.logo || defaults.logo;
+        const siteLogo = document.getElementById('siteLogo');
+        if (siteLogo) {
+            siteLogo.src = logo;
+            siteLogo.onerror = function() {
+                // Fallback to default logo if custom logo fails to load
+                this.src = defaults.logo;
+            };
+        }
         
         // Update hero section
         const heroTitle = document.getElementById('heroTitle');
@@ -313,6 +325,7 @@ async function loadContent() {
         console.error('Error loading content:', error);
         // Set defaults on error
         const defaults = {
+            logo: 'assets/images/logo.svg',
             hero: {
                 title: 'Elegance Redefined',
                 subtitle: 'Discover our exquisite collection of premium sarees that blend traditional craftsmanship with modern sophistication'
@@ -328,6 +341,12 @@ async function loadContent() {
             phone: '+91 98765 43210',
             about: 'ShreeAdvaya represents the perfect fusion of traditional Indian craftsmanship and contemporary design. We curate the finest collection of sarees, each piece telling a story of heritage, elegance, and timeless beauty. Our commitment to quality and authenticity ensures that every saree in our collection is a masterpiece, carefully selected to celebrate the rich cultural heritage of India while meeting modern fashion sensibilities.'
         };
+        
+        // Update logo on error
+        const siteLogo = document.getElementById('siteLogo');
+        if (siteLogo) {
+            siteLogo.src = defaults.logo;
+        }
         
         const heroTitle = document.getElementById('heroTitle');
         const heroSubtitle = document.getElementById('heroSubtitle');
