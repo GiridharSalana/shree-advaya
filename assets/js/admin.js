@@ -1195,13 +1195,26 @@ document.getElementById('contentForm')?.addEventListener('submit', async (e) => 
         // Handle logo - prioritize uploaded file over URL if both are provided
         let finalLogoUrl = logoUrl;
         if (logoFile) {
-            // Upload file and get URL
-            const uploadedUrls = await uploadImages([logoFile], 'images');
-            finalLogoUrl = uploadedUrls[0];
+            try {
+                // Upload file and get URL
+                const uploadedUrls = await uploadImages([logoFile], 'images');
+                finalLogoUrl = uploadedUrls[0];
+            } catch (uploadError) {
+                console.error('Logo upload failed:', uploadError);
+                showNotification('Warning: Logo upload failed. Using existing logo. Error: ' + uploadError.message, 'error');
+                // Keep existing logo from originalData
+                finalLogoUrl = originalData.content?.logo || logoUrl || 'assets/images/logo.svg';
+            }
         } else if (isBase64DataUrl(logoUrl)) {
-            // Upload base64 data URL
-            const uploadedUrls = await uploadImages([logoUrl], 'images');
-            finalLogoUrl = uploadedUrls[0];
+            try {
+                // Upload base64 data URL
+                const uploadedUrls = await uploadImages([logoUrl], 'images');
+                finalLogoUrl = uploadedUrls[0];
+            } catch (uploadError) {
+                console.error('Base64 logo upload failed:', uploadError);
+                showNotification('Warning: Logo upload failed. Using existing logo.', 'error');
+                finalLogoUrl = originalData.content?.logo || 'assets/images/logo.svg';
+            }
         }
         // If logoUrl is already a regular URL (not base64), use it as-is
         
