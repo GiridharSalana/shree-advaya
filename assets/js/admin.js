@@ -136,203 +136,7 @@ document.querySelectorAll('.nav-tab').forEach(tab => {
     });
 });
 
-// Compress image to reduce file size before upload
-// Skips compression for HEIF/HEIC and other formats that browsers can't render
-// Aggressive compression to stay under Vercel's 4.5MB payload limit
-async function compressImage(file, maxWidth = 1200, maxHeight = 1200, quality = 0.7) {
-    return new Promise((resolve, reject) => {
-        // If it's already a string (base64), try to convert it to blob first
-        if (typeof file === 'string' && file.startsWith('data:image/')) {
-            fetch(file)
-                .then(res => res.blob())
-                .then(blob => compressImage(blob, maxWidth, maxHeight, quality))
-                .then(resolve)
-                .catch(reject);
-            return;
-        }
-        
-        // If it's a File or Blob object
-        if (file instanceof File || file instanceof Blob) {
-            // Check file type - skip compression for formats browsers can't render
-            const fileName = file.name || '';
-            const fileType = file.type || '';
-            const ext = fileName.split('.').pop()?.toLowerCase() || '';
-            
-            // Skip compression for HEIF/HEIC and other non-browser-renderable formats
-            const skipCompressionFormats = ['heic', 'heif', 'avif', 'tiff', 'tif'];
-            const skipCompressionTypes = ['image/heic', 'image/heif', 'image/avif', 'image/tiff'];
-            
-            if (skipCompressionFormats.includes(ext) || skipCompressionTypes.includes(fileType)) {
-                console.log(`Skipping compression for ${ext || fileType} format`);
-                resolve(file);
-                return;
-            }
-            
-            // Check if file is too large (>8MB) - skip compression for very large files to avoid memory issues
-            if (file.size > 8 * 1024 * 1024) {
-                console.warn('File too large for compression, uploading as-is');
-                resolve(file);
-                return;
-            }
-            
-            const reader = new FileReader();
-            reader.onload = (e) => {
-                const img = new Image();
-                img.onload = () => {
-                    const canvas = document.createElement('canvas');
-                    let width = img.width;
-                    let height = img.height;
-                    
-                    // Calculate new dimensions
-                    if (width > maxWidth || height > maxHeight) {
-                        const ratio = Math.min(maxWidth / width, maxHeight / height);
-                        width = Math.floor(width * ratio);
-                        height = Math.floor(height * ratio);
-                    }
-                    
-                    canvas.width = width;
-                    canvas.height = height;
-                    
-                    const ctx = canvas.getContext('2d');
-                    ctx.drawImage(img, 0, 0, width, height);
-                    
-                    // Convert to base64 (compressed)
-                    canvas.toBlob((blob) => {
-                        if (blob) {
-                            const reader2 = new FileReader();
-                            reader2.onload = (e2) => {
-                                console.log(`Compressed ${fileName} from ${(file.size/1024).toFixed(2)}KB to ${(blob.size/1024).toFixed(2)}KB`);
-                                resolve(e2.target.result); // Return base64 string
-                            };
-                            reader2.onerror = reject;
-                            reader2.readAsDataURL(blob);
-                        } else {
-                            reject(new Error('Failed to compress image'));
-                        }
-                    }, 'image/jpeg', quality);
-                };
-                img.onerror = (error) => {
-                    console.warn('Failed to load image for compression, uploading original:', error);
-                    // If image fails to load (e.g., unsupported format), just upload original
-                    resolve(file);
-                };
-                img.src = e.target.result;
-            };
-            reader.onerror = () => {
-                console.warn('Failed to read file, uploading original');
-                resolve(file);
-            };
-            reader.readAsDataURL(file);
-            return;
-        }
-        
-        reject(new Error('Invalid file type'));
-    });
-}
-
-// Upload images to GitHub and get URLs back
-// Uses compressed base64 - uploads one at a time to avoid payload limits
-async function uploadImages(files, folder = 'images') {
-    try {
-        const token = localStorage.getItem(STORAGE_KEY);
-        if (!token) {
-            throw new Error('Not authenticated');
-        }
-
-        if (files.length === 0) {
-            throw new Error('No files to upload');
-        }
-
-        const uploadedUrls = [];
-        
-        // Show initial notification
-        if (files.length > 1) {
-            showNotification(`Uploading ${files.length} images...`, 'info');
-        }
-        
-        // Upload images one at a time to stay under Vercel's 4.5MB payload limit
-        for (let i = 0; i < files.length; i++) {
-            const file = files[i];
-            console.log(`Uploading image ${i + 1} of ${files.length}...`);
-            
-            if (files.length > 1) {
-                showNotification(`Uploading image ${i + 1} of ${files.length}...`, 'info');
-            }
-            
-            try {
-                // Compress image to base64
-                const compressedBase64 = await compressImage(file);
-                
-                // Check size - warn if still large
-                const sizeInMB = (compressedBase64.length * 0.75) / (1024 * 1024); // Estimate actual size
-                if (sizeInMB > 4) {
-                    console.warn(`Image ${i + 1} is ${sizeInMB.toFixed(2)}MB - may fail upload`);
-                }
-                
-                // Upload single image
-                const response = await fetch(`${API_BASE}/upload`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${token}`
-                    },
-                    body: JSON.stringify({
-                        images: [compressedBase64], // Single image array
-                        folder: folder
-                    })
-                });
-
-                if (!response.ok) {
-                    const errorText = await response.text();
-                    let errorMsg = `Failed to upload image ${i + 1}`;
-                    try {
-                        const error = JSON.parse(errorText);
-                        errorMsg = error.error || errorMsg;
-                    } catch (e) {
-                        errorMsg = errorText || errorMsg;
-                    }
-                    throw new Error(errorMsg);
-                }
-
-                const result = await response.json();
-                const url = result.files[0]?.url;
-                
-                if (!url) {
-                    throw new Error(`No URL returned for image ${i + 1}`);
-                }
-                
-                uploadedUrls.push(url);
-                console.log(`✓ Uploaded image ${i + 1} of ${files.length}`);
-                
-            } catch (error) {
-                console.error(`Error uploading image ${i + 1}:`, error);
-                throw new Error(`Failed to upload image ${i + 1}: ${error.message}`);
-            }
-        }
-        
-        return uploadedUrls; // Return array of URLs
-    } catch (error) {
-        console.error('Upload error:', error);
-        throw error;
-    }
-}
-
-// Helper function to check if a string is a base64 data URL
-function isBase64DataUrl(str) {
-    if (typeof str !== 'string' || !str.startsWith('data:image/')) {
-        return false;
-    }
-    
-    // Validate format: data:image/<type>;base64,<data>
-    const matches = str.match(/^data:image\/[a-zA-Z0-9+.-]+;base64,(.+)$/);
-    if (!matches || matches.length < 2) {
-        return false;
-    }
-    
-    // Check that base64 data is not empty
-    const base64Data = matches[1];
-    return base64Data && base64Data.length > 10;
-}
+// Image upload functionality removed - using URL-based images only
 
 // API Functions
 async function apiCall(endpoint, method = 'GET', data = null) {
@@ -516,8 +320,6 @@ function openProductModal(productId = null) {
     const title = document.getElementById('productModalTitle');
 
     form.reset();
-    document.getElementById('productImagePreview').innerHTML = '';
-    document.getElementById('productImageUpload').value = ''; // Clear file input
     document.getElementById('productImagesContainer').innerHTML = '';
     
     // Add initial image field
@@ -739,8 +541,6 @@ function openGalleryModal(itemId = null) {
     const title = document.getElementById('galleryModalTitle');
 
     form.reset();
-    document.getElementById('galleryImagePreview').innerHTML = '';
-    document.getElementById('galleryImageUpload').value = ''; // Clear file input
 
     if (itemId) {
         title.textContent = 'Edit Gallery Image';
@@ -781,31 +581,19 @@ document.getElementById('galleryForm')?.addEventListener('submit', async (e) => 
     
     try {
         submitBtn.disabled = true;
-        submitBtn.textContent = 'Uploading image...';
+        submitBtn.textContent = 'Saving gallery image...';
         
         const imageUrl = document.getElementById('galleryImage').value.trim();
-        const imageFile = document.getElementById('galleryImageUpload').files[0];
         
-        // Validate that either URL or file is provided
-        if (!imageUrl && !imageFile) {
-            showNotification('Please provide either an image URL or upload an image file', 'error');
+        // Validate that URL is provided
+        if (!imageUrl) {
+            showNotification('Please provide an image URL', 'error');
             submitBtn.disabled = false;
             submitBtn.textContent = originalBtnText;
             return;
         }
         
-        // Prioritize uploaded file over URL if both are provided
-        let finalImageUrl = imageUrl;
-        if (imageFile) {
-            // Upload file and get URL
-            const uploadedUrls = await uploadImages([imageFile], 'images');
-            finalImageUrl = uploadedUrls[0];
-        } else if (isBase64DataUrl(imageUrl)) {
-            // Upload base64 data URL
-            const uploadedUrls = await uploadImages([imageUrl], 'images');
-            finalImageUrl = uploadedUrls[0];
-        }
-        // If imageUrl is already a regular URL (not base64), use it as-is
+        const finalImageUrl = imageUrl;
         
         const galleryData = {
             image: finalImageUrl,
@@ -927,8 +715,6 @@ function openHeroModal(itemId = null) {
     const title = document.getElementById('heroModalTitle');
 
     form.reset();
-    document.getElementById('heroImagePreview').innerHTML = '';
-    document.getElementById('heroImageUpload').value = ''; // Clear file input
 
     if (itemId) {
         title.textContent = 'Edit Hero Image';
@@ -968,31 +754,19 @@ document.getElementById('heroForm')?.addEventListener('submit', async (e) => {
     
     try {
         submitBtn.disabled = true;
-        submitBtn.textContent = 'Uploading image...';
+        submitBtn.textContent = 'Saving hero image...';
         
         const imageUrl = document.getElementById('heroImage').value.trim();
-        const imageFile = document.getElementById('heroImageUpload').files[0];
         
-        // Validate that either URL or file is provided
-        if (!imageUrl && !imageFile) {
-            showNotification('Please provide either an image URL or upload an image file', 'error');
+        // Validate that URL is provided
+        if (!imageUrl) {
+            showNotification('Please provide an image URL', 'error');
             submitBtn.disabled = false;
             submitBtn.textContent = originalBtnText;
             return;
         }
         
-        // Prioritize uploaded file over URL if both are provided
-        let finalImageUrl = imageUrl;
-        if (imageFile) {
-            // Upload file and get URL
-            const uploadedUrls = await uploadImages([imageFile], 'images');
-            finalImageUrl = uploadedUrls[0];
-        } else if (isBase64DataUrl(imageUrl)) {
-            // Upload base64 data URL
-            const uploadedUrls = await uploadImages([imageUrl], 'images');
-            finalImageUrl = uploadedUrls[0];
-        }
-        // If imageUrl is already a regular URL (not base64), use it as-is
+        const finalImageUrl = imageUrl;
         
         const heroData = {
             image: finalImageUrl
@@ -1208,22 +982,7 @@ window.onclick = function(event) {
     }
 }
 
-// Image preview handlers
-document.getElementById('productImageUpload')?.addEventListener('change', (e) => {
-    handleMultipleImagePreview(e, 'productImagePreview');
-});
-
-document.getElementById('galleryImageUpload')?.addEventListener('change', (e) => {
-    handleImagePreview(e, 'galleryImagePreview', 'galleryImage');
-});
-
-document.getElementById('heroImageUpload')?.addEventListener('change', (e) => {
-    handleImagePreview(e, 'heroImagePreview', 'heroImage');
-});
-
-document.getElementById('logoUpload')?.addEventListener('change', (e) => {
-    handleImagePreview(e, 'logoPreview', 'siteLogoUrl');
-});
+// Image preview handlers removed - using URL-based images only
 
 function handleImagePreview(event, previewId, inputId) {
     const file = event.target.files[0];
