@@ -6,9 +6,12 @@
     "price": "5000",
     "description": "Giri is the best guy.",
     "images": [
-      "https://images.pexels.com/photos/1583582/pexels-photo-1583582.jpeg"
+      "https://images.pexels.com/photos/1583582/pexels-photo-1583582.jpeg",
+      "https://images.pexels.com/photos/709143/pexels-photo-709143.jpeg",
+      "https://images.pexels.com/photos/2176593/pexels-photo-2176593.jpeg"
     ],
-    "alt": "",
-    "createdAt": "2025-11-24T16:47:09.054Z"
+    "alt": "This is description",
+    "createdAt": "2025-11-24T16:47:09.054Z",
+    "updatedAt": "2025-11-24T16:48:11.844Z"
   }
 ]
