@@ -96,6 +96,9 @@ async function loadProducts() {
         // Reinitialize product cards for animations
         const newProductCards = document.querySelectorAll('.product-card');
         initProductCards(newProductCards);
+        
+        // Initialize product image carousels with auto-play
+        initProductCarousels();
     } catch (error) {
         console.error('Error loading products:', error);
         const productsGrid = document.getElementById('productsGrid');
@@ -576,8 +579,13 @@ function initDOM() {
 // Product Image Carousel Functions
 function changeProductImage(button, direction) {
     const carousel = button.closest('.product-image-carousel');
+    if (!carousel) return;
+    
     const images = carousel.querySelectorAll('.product-carousel-image');
     const indicators = carousel.querySelectorAll('.indicator');
+    
+    if (images.length === 0) return;
+    
     let currentIndex = 0;
     
     images.forEach((img, index) => {
@@ -597,10 +605,18 @@ function changeProductImage(button, direction) {
         indicators[currentIndex].classList.remove('active');
         indicators[newIndex].classList.add('active');
     }
+    
+    // Reset auto-play timer
+    if (carousel.autoPlayTimer) {
+        clearInterval(carousel.autoPlayTimer);
+    }
+    startCarouselAutoPlay(carousel);
 }
 
 function goToProductImage(indicator, index) {
     const carousel = indicator.closest('.product-image-carousel');
+    if (!carousel) return;
+    
     const images = carousel.querySelectorAll('.product-carousel-image');
     const indicators = carousel.querySelectorAll('.indicator');
     
@@ -610,6 +626,53 @@ function goToProductImage(indicator, index) {
     
     indicators.forEach((ind, i) => {
         ind.classList.toggle('active', i === index);
+    });
+    
+    // Reset auto-play timer
+    if (carousel.autoPlayTimer) {
+        clearInterval(carousel.autoPlayTimer);
+    }
+    startCarouselAutoPlay(carousel);
+}
+
+// Auto-play carousel - changes image every 10 seconds
+function startCarouselAutoPlay(carousel) {
+    if (!carousel) return;
+    
+    const images = carousel.querySelectorAll('.product-carousel-image');
+    if (images.length <= 1) return; // Don't auto-play if only one image
+    
+    carousel.autoPlayTimer = setInterval(() => {
+        const indicators = carousel.querySelectorAll('.indicator');
+        let currentIndex = 0;
+        
+        images.forEach((img, index) => {
+            if (img.classList.contains('active')) {
+                currentIndex = index;
+            }
+        });
+        
+        let newIndex = currentIndex + 1;
+        if (newIndex >= images.length) newIndex = 0;
+        
+        images[currentIndex].classList.remove('active');
+        images[newIndex].classList.add('active');
+        
+        if (indicators.length > 0) {
+            indicators[currentIndex].classList.remove('active');
+            indicators[newIndex].classList.add('active');
+        }
+    }, 10000); // 10 seconds
+}
+
+// Initialize all product carousels with auto-play
+function initProductCarousels() {
+    const carousels = document.querySelectorAll('.product-image-carousel');
+    carousels.forEach(carousel => {
+        const images = carousel.querySelectorAll('.product-carousel-image');
+        if (images.length > 1) {
+            startCarouselAutoPlay(carousel);
+        }
     });
 }
 
