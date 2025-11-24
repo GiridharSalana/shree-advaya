@@ -195,18 +195,16 @@ async function compressImage(file, maxWidth = 1920, maxHeight = 1920, quality = 
                     const ctx = canvas.getContext('2d');
                     ctx.drawImage(img, 0, 0, width, height);
                     
-                    // Convert to blob (compressed file)
+                    // Convert to base64 (compressed)
                     canvas.toBlob((blob) => {
                         if (blob) {
-                            // Create a File object with proper name
-                            const originalExt = fileName.split('.').pop()?.toLowerCase();
-                            const newFileName = fileName.replace(/\.[^/.]+$/, '') + '.jpg';
-                            const compressedFile = new File([blob], newFileName, {
-                                type: 'image/jpeg',
-                                lastModified: Date.now()
-                            });
-                            console.log(`Compressed ${fileName} from ${(file.size/1024).toFixed(2)}KB to ${(blob.size/1024).toFixed(2)}KB`);
-                            resolve(compressedFile);
+                            const reader2 = new FileReader();
+                            reader2.onload = (e2) => {
+                                console.log(`Compressed ${fileName} from ${(file.size/1024).toFixed(2)}KB to ${(blob.size/1024).toFixed(2)}KB`);
+                                resolve(e2.target.result); // Return base64 string
+                            };
+                            reader2.onerror = reject;
+                            reader2.readAsDataURL(blob);
                         } else {
                             reject(new Error('Failed to compress image'));
                         }
@@ -232,7 +230,7 @@ async function compressImage(file, maxWidth = 1920, maxHeight = 1920, quality = 
 }
 
 // Upload images to GitHub and get URLs back
-// Now uses FormData to upload actual files instead of base64
+// Uses compressed base64 - no dependencies needed
 async function uploadImages(files, folder = 'images') {
     try {
         const token = localStorage.getItem(STORAGE_KEY);
@@ -240,41 +238,42 @@ async function uploadImages(files, folder = 'images') {
             throw new Error('Not authenticated');
         }
 
-        // Compress images first
-        const compressedFiles = await Promise.all(
+        // Compress images to base64
+        const compressedBase64 = await Promise.all(
             files.map(async (file) => {
                 try {
-                    return await compressImage(file);
+                    return await compressImage(file); // Returns base64 string
                 } catch (error) {
                     console.error('Compression error:', error);
-                    // If compression fails, use original file if it's a File object
+                    // If compression fails, try to convert original to base64
                     if (file instanceof File || file instanceof Blob) {
-                        return file;
+                        return new Promise((resolve, reject) => {
+                            const reader = new FileReader();
+                            reader.onload = (e) => resolve(e.target.result);
+                            reader.onerror = reject;
+                            reader.readAsDataURL(file);
+                        });
                     }
                     throw error;
                 }
             })
         );
         
-        if (compressedFiles.length === 0) {
+        if (compressedBase64.length === 0) {
             throw new Error('No valid images to upload');
         }
         
-        // Use FormData to upload files
-        const formData = new FormData();
-        compressedFiles.forEach((file, index) => {
-            formData.append('images', file);
-        });
-        formData.append('folder', folder);
-        
-        // Upload to API using FormData (not JSON)
+        // Upload to API using JSON with base64
         const response = await fetch(`${API_BASE}/upload`, {
             method: 'POST',
             headers: {
+                'Content-Type': 'application/json',
                 'Authorization': `Bearer ${token}`
-                // Don't set Content-Type - browser will set it with boundary for multipart/form-data
             },
-            body: formData
+            body: JSON.stringify({
+                images: compressedBase64,
+                folder: folder
+            })
         });
 
         if (!response.ok) {
