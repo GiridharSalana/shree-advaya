@@ -610,7 +610,8 @@ document.getElementById('productForm')?.addEventListener('submit', async (e) => 
         showNotification('Please provide at least one image URL', 'error');
         return;
     }
-        
+    
+    try {
         const productData = {
             name: document.getElementById('productName').value,
             category: document.getElementById('productCategory').value,
@@ -644,9 +645,6 @@ document.getElementById('productForm')?.addEventListener('submit', async (e) => 
         updatePendingCount();
     } catch (error) {
         showNotification('Error saving product: ' + error.message, 'error');
-    } finally {
-        submitBtn.disabled = false;
-        submitBtn.textContent = originalBtnText;
     }
 });
 
