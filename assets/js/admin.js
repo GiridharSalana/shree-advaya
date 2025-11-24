@@ -377,6 +377,7 @@ async function loadProductData(productId) {
         document.getElementById('productName').value = product.name;
         document.getElementById('productCategory').value = product.category;
         document.getElementById('productPrice').value = product.price;
+        document.getElementById('productDescription').value = product.description || '';
         document.getElementById('productAlt').value = product.alt || '';
         
         // Handle images - support both single image (backward compatibility) and multiple images
@@ -418,6 +419,7 @@ document.getElementById('productForm')?.addEventListener('submit', async (e) => 
             name: document.getElementById('productName').value,
             category: document.getElementById('productCategory').value,
             price: document.getElementById('productPrice').value,
+            description: document.getElementById('productDescription').value.trim(),
             images: allImages, // Store as array of URLs (no base64)
             alt: document.getElementById('productAlt').value
         };

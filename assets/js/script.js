@@ -86,6 +86,7 @@ async function loadProducts() {
                 ${imageHTML}
                 <div class="product-info">
                     <h3>${product.name}</h3>
+                    ${product.description ? `<p class="product-description">${product.description}</p>` : ''}
                     <p class="product-price">₹${product.price}</p>
                 </div>
             `;
