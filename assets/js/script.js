@@ -6,7 +6,6 @@ async function loadDynamicContent() {
     try {
         await Promise.all([
             loadProducts(),
-            loadGallery(),
             loadHeroImages(),
             loadContent()
         ]);
@@ -105,36 +104,6 @@ async function loadProducts() {
     }
 }
 
-// Load Gallery
-async function loadGallery() {
-    try {
-        const response = await fetch(`${API_BASE}/gallery`);
-        if (!response.ok) throw new Error('Failed to load gallery');
-        const gallery = await response.json();
-        
-        const galleryGrid = document.getElementById('galleryGrid');
-        if (!galleryGrid) return;
-        
-        galleryGrid.innerHTML = '';
-        
-        if (gallery.length === 0) {
-            galleryGrid.innerHTML = '<p style="text-align: center; grid-column: 1/-1; padding: 40px;">No gallery images available.</p>';
-            return;
-        }
-        
-        gallery.forEach((item) => {
-            const galleryItem = document.createElement('div');
-            galleryItem.className = 'gallery-item';
-            galleryItem.innerHTML = `<img src="${item.image}" alt="${item.alt}" loading="lazy" onerror="this.src='assets/images/new-1.webp'">`;
-            galleryGrid.appendChild(galleryItem);
-        });
-        
-        // Reinitialize gallery lightbox
-        initGalleryLightbox();
-    } catch (error) {
-        console.error('Error loading gallery:', error);
-    }
-}
 
 // Load Hero Images
 async function loadHeroImages() {
@@ -461,22 +430,6 @@ function initProductCards(cards) {
     });
 }
 
-// Initialize gallery lightbox
-function initGalleryLightbox() {
-    const galleryItems = document.querySelectorAll(".gallery-item");
-    galleryItems.forEach((item) => {
-        item.addEventListener("click", () => {
-            const img = item.querySelector("img");
-            const lightbox = createLightbox(img.src, img.alt);
-            document.body.appendChild(lightbox);
-            
-            setTimeout(() => {
-                lightbox.style.opacity = "1";
-            }, 10);
-        });
-    });
-}
-
 // DOM Elements - Wait for DOM to be ready
 let hamburger, navMenu, navLinks, categoryBtns, productCards;
 
@@ -695,21 +648,6 @@ window.addEventListener("scroll", () => {
     navbar.style.background = "rgba(255, 255, 255, 0.98)";
     navbar.style.boxShadow = "0 2px 20px rgba(0, 0, 0, 0.05)";
   }
-});
-
-// Gallery Lightbox Functionality
-const galleryItems = document.querySelectorAll(".gallery-item");
-galleryItems.forEach((item) => {
-  item.addEventListener("click", () => {
-    const img = item.querySelector("img");
-    const lightbox = createLightbox(img.src, img.alt);
-    document.body.appendChild(lightbox);
-
-    // Fade in animation
-    setTimeout(() => {
-      lightbox.style.opacity = "1";
-    }, 10);
-  });
 });
 
 function createLightbox(src, alt) {
@@ -931,7 +869,7 @@ document.addEventListener("DOMContentLoaded", () => {
 // Smooth Scroll Reveal Animations
 function initScrollAnimations() {
   const animateElements = document.querySelectorAll(
-    ".product-card, .feature, .gallery-item, .contact-item"
+    ".product-card, .feature, .contact-item"
   );
 
   const observer = new IntersectionObserver(

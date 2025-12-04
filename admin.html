@@ -59,9 +59,6 @@
                     <a href="#products" class="nav-tab active" data-tab="products">
                         <i class="fas fa-box"></i> Products
                     </a>
-                    <a href="#gallery" class="nav-tab" data-tab="gallery">
-                        <i class="fas fa-images"></i> Gallery
-                    </a>
                     <a href="#hero" class="nav-tab" data-tab="hero">
                         <i class="fas fa-image"></i> Hero Images
                     </a>
@@ -85,21 +82,6 @@
                     <div class="add-button-container">
                         <button class="btn btn-primary" onclick="openProductModal()">
                             <i class="fas fa-plus"></i> Add Product
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Gallery Tab -->
-                <div id="galleryTab" class="tab-content">
-                    <div class="section-header">
-                        <h2>Manage Gallery</h2>
-                    </div>
-                    <div id="galleryList" class="items-grid">
-                        <!-- Gallery items will be loaded here -->
-                    </div>
-                    <div class="add-button-container">
-                        <button class="btn btn-primary" onclick="openGalleryModal()">
-                            <i class="fas fa-plus"></i> Add Image
                         </button>
                     </div>
                 </div>
@@ -239,16 +221,33 @@
                 <div class="form-group">
                     <label>Product Images</label>
                     <small style="display: block; margin-bottom: 10px; color: #666;">
-                        Add image URLs from Google Drive, Imgur, or any image hosting service.<br>
-                        <strong>Google Drive:</strong> Share → Anyone with link → Copy link → Get direct image URL<br>
-                        <strong>Imgur:</strong> Upload → Right click → Copy image address
+                        Upload images from your computer or add image URLs from external sources
                     </small>
-                    <div id="productImagesContainer">
-                        <!-- Image inputs will be dynamically added here -->
+                    
+                    <!-- File Upload Option -->
+                    <div style="margin-bottom: 15px; padding: 15px; background: #f8f9fa; border-radius: 8px;">
+                        <label style="display: block; margin-bottom: 8px; font-weight: 600;">
+                            <i class="fas fa-upload"></i> Upload Images from Computer
+                        </label>
+                        <input type="file" id="productImageFiles" accept="image/*" multiple 
+                               style="display: block; margin-bottom: 10px; padding: 8px; border: 2px dashed #d4af37; border-radius: 4px; width: 100%; background: white;">
+                        <button type="button" class="btn btn-primary" onclick="uploadProductImages()" style="width: 100%;">
+                            <i class="fas fa-cloud-upload-alt"></i> Upload Selected Files
+                        </button>
                     </div>
-                    <button type="button" class="btn btn-secondary" onclick="addProductImageField()" style="margin-top: 10px;">
-                        <i class="fas fa-plus"></i> Add Another Image URL
-                    </button>
+                    
+                    <!-- URL Input Option -->
+                    <div style="margin-bottom: 10px;">
+                        <label style="display: block; margin-bottom: 8px; font-weight: 600;">
+                            <i class="fas fa-link"></i> Or Add Image URLs Manually
+                        </label>
+                        <div id="productImagesContainer">
+                            <!-- Image inputs will be dynamically added here -->
+                        </div>
+                        <button type="button" class="btn btn-secondary" onclick="addProductImageField()" style="margin-top: 10px;">
+                            <i class="fas fa-plus"></i> Add Image URL
+                        </button>
+                    </div>
                 </div>
                 <div class="form-group">
                     <label>Alt Text</label>
@@ -262,31 +261,6 @@
         </div>
     </div>
 
-    <!-- Gallery Modal -->
-    <div id="galleryModal" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="closeModal('galleryModal')">&times;</span>
-            <h2 id="galleryModalTitle">Add Gallery Image</h2>
-            <form id="galleryForm">
-                <input type="hidden" id="galleryId">
-                <div class="form-group">
-                    <label>Gallery Image URL</label>
-                    <input type="text" id="galleryImage" placeholder="https://... (Google Drive, Imgur, etc.)">
-                    <small>Paste direct image URL from any hosting service</small>
-                    <div id="galleryImagePreview" class="image-preview" style="margin-top: 10px;"></div>
-                </div>
-                <div class="form-group">
-                    <label>Alt Text *</label>
-                    <input type="text" id="galleryAlt" required placeholder="Image description">
-                </div>
-                <div class="modal-actions">
-                    <button type="button" class="btn btn-secondary" onclick="closeModal('galleryModal')">Cancel</button>
-                    <button type="submit" class="btn btn-primary">Save Image</button>
-                </div>
-            </form>
-        </div>
-    </div>
-
     <!-- Hero Modal -->
     <div id="heroModal" class="modal">
         <div class="modal-content">
@@ -295,9 +269,28 @@
             <form id="heroForm">
                 <input type="hidden" id="heroId">
                 <div class="form-group">
-                    <label>Hero Image URL</label>
-                    <input type="text" id="heroImage" placeholder="https://... (Google Drive, Imgur, etc.)">
-                    <small>Paste direct image URL from any hosting service</small>
+                    <label>Hero Image</label>
+                    
+                    <!-- File Upload Option -->
+                    <div style="margin-bottom: 15px; padding: 15px; background: #f8f9fa; border-radius: 8px;">
+                        <label style="display: block; margin-bottom: 8px; font-weight: 600;">
+                            <i class="fas fa-upload"></i> Upload Image from Computer
+                        </label>
+                        <input type="file" id="heroImageFile" accept="image/*" 
+                               style="display: block; margin-bottom: 10px; padding: 8px; border: 2px dashed #d4af37; border-radius: 4px; width: 100%; background: white;">
+                        <button type="button" class="btn btn-primary" onclick="uploadHeroImage()" style="width: 100%;">
+                            <i class="fas fa-cloud-upload-alt"></i> Upload File
+                        </button>
+                    </div>
+                    
+                    <!-- URL Input Option -->
+                    <div style="margin-bottom: 10px;">
+                        <label style="display: block; margin-bottom: 8px; font-weight: 600;">
+                            <i class="fas fa-link"></i> Or Add Image URL Manually
+                        </label>
+                        <input type="text" id="heroImage" placeholder="https://... (direct image URL)">
+                    </div>
+                    
                     <div id="heroImagePreview" class="image-preview" style="margin-top: 10px;"></div>
                 </div>
                 <div class="modal-actions">
