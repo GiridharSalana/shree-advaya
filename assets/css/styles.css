@@ -765,7 +765,7 @@ h6 {
     position: absolute;
     top: 20px;
     right: 20px;
-    background: rgba(255, 255, 255, 0.9);
+    background: #d4af37;
     border: none;
     width: 45px;
     height: 45px;
@@ -777,32 +777,30 @@ h6 {
     align-items: center;
     justify-content: center;
     transition: all 0.3s ease;
-    color: #2c1810;
+    color: white;
+    box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
 }
 
 .product-modal-close:hover {
-    background: #d4af37;
-    color: white;
-    transform: rotate(90deg);
+    background: #b8960f;
+    transform: rotate(90deg) scale(1.1);
 }
 
 .product-modal-body {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 40px;
-    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    padding: 0;
 }
 
 .product-modal-images {
     position: relative;
+    width: 100%;
 }
 
 .product-modal-main-image {
     width: 100%;
-    height: 500px;
-    border-radius: 15px;
+    height: 600px;
     overflow: hidden;
-    margin-bottom: 20px;
     position: relative;
 }
 
@@ -814,27 +812,33 @@ h6 {
 
 .product-modal-thumbnails {
     display: flex;
-    gap: 10px;
+    gap: 15px;
+    padding: 20px;
+    background: #f8f9fa;
+    justify-content: center;
     flex-wrap: wrap;
 }
 
 .product-modal-thumbnail {
-    width: 80px;
-    height: 80px;
+    width: 100px;
+    height: 100px;
     border-radius: 10px;
     overflow: hidden;
     cursor: pointer;
     border: 3px solid transparent;
     transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .product-modal-thumbnail:hover {
     border-color: #d4af37;
-    transform: scale(1.05);
+    transform: scale(1.08);
+    box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
 }
 
 .product-modal-thumbnail.active {
     border-color: #d4af37;
+    box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
 }
 
 .product-modal-thumbnail img {
@@ -844,82 +848,103 @@ h6 {
 }
 
 .product-modal-details {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+    padding: 40px;
+    text-align: center;
 }
 
 .product-modal-category {
     display: inline-block;
     background: linear-gradient(135deg, #d4af37 0%, #ffd700 100%);
     color: white;
-    padding: 8px 20px;
-    border-radius: 20px;
-    font-size: 0.85rem;
+    padding: 10px 25px;
+    border-radius: 25px;
+    font-size: 0.9rem;
     font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 1px;
-    margin-bottom: 20px;
-    width: fit-content;
+    letter-spacing: 1.5px;
+    margin-bottom: 25px;
 }
 
 .product-modal-title {
-    font-size: 2.5rem;
+    font-size: 3rem;
     color: #2c1810;
-    margin-bottom: 20px;
+    margin-bottom: 25px;
     font-family: 'Playfair Display', serif;
     font-weight: 700;
+    line-height: 1.2;
 }
 
 .product-modal-price {
-    font-size: 2rem;
+    font-size: 2.5rem;
     color: #d4af37;
     font-weight: 700;
-    margin-bottom: 20px;
+    margin-bottom: 25px;
 }
 
 .product-modal-description {
-    font-size: 1.1rem;
+    font-size: 1.15rem;
     color: #666;
     line-height: 1.8;
-    margin-bottom: 30px;
+    margin-bottom: 35px;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .product-modal-actions {
     display: flex;
-    gap: 15px;
-    margin-top: 30px;
+    gap: 20px;
+    justify-content: center;
+    margin-top: 35px;
 }
 
 .product-modal-actions .btn {
-    flex: 1;
-    padding: 15px 30px;
-    font-size: 1.1rem;
+    padding: 18px 40px;
+    font-size: 1.15rem;
     border-radius: 30px;
+    min-width: 200px;
 }
 
 /* Mobile Responsive */
 @media (max-width: 768px) {
-    .product-modal-body {
-        grid-template-columns: 1fr;
-        gap: 20px;
-        padding: 20px;
+    .product-modal-main-image {
+        height: 400px;
     }
     
-    .product-modal-main-image {
-        height: 350px;
+    .product-modal-details {
+        padding: 25px;
     }
     
     .product-modal-title {
-        font-size: 1.8rem;
+        font-size: 2rem;
     }
     
     .product-modal-price {
-        font-size: 1.5rem;
+        font-size: 1.8rem;
+    }
+    
+    .product-modal-description {
+        font-size: 1rem;
     }
     
     .product-modal-actions {
         flex-direction: column;
+        gap: 15px;
+    }
+    
+    .product-modal-actions .btn {
+        width: 100%;
+        min-width: unset;
+    }
+    
+    .product-modal-thumbnails {
+        padding: 15px;
+        gap: 10px;
+    }
+    
+    .product-modal-thumbnail {
+        width: 70px;
+        height: 70px;
     }
     
     .product-modal-close {
@@ -927,6 +952,7 @@ h6 {
         right: 10px;
         width: 40px;
         height: 40px;
+        font-size: 1.3rem;
     }
 }
 
