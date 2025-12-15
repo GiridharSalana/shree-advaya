@@ -500,6 +500,8 @@ h6 {
     width: 100%;
     max-width: 300px;
     cursor: pointer;
+    display: flex;
+    flex-direction: column;
 }
 
 .product-card:hover {
@@ -661,6 +663,9 @@ h6 {
 .product-info {
     padding: 1.5rem;
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
 }
 
 .product-info h3 {
@@ -705,6 +710,7 @@ h6 {
     align-items: center;
     justify-content: center;
     gap: 8px;
+    margin-top: auto;
 }
 
 .product-inquire-btn:hover {
