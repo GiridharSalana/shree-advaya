@@ -25,8 +25,9 @@
   },
   {
     "id": "test",
-    "name": "Test",
+    "name": "Test Category",
     "order": 5,
-    "createdAt": "2025-12-16T16:04:21.347Z"
+    "createdAt": "2025-12-16T16:04:21.347Z",
+    "updatedAt": "2025-12-16T16:16:53.117Z"
   }
 ]
