@@ -125,5 +125,30 @@
     "alt": "",
     "createdAt": "2026-01-21T08:56:47.913Z",
     "updatedAt": "2026-01-21T10:36:17.969Z"
+  },
+  {
+    "id": "176900080656830av4yqwa",
+    "name": "Mysore Silk Crepe",
+    "category": "silk",
+    "price": "12500",
+    "description": "Fabric: Pure Crepe Mysore Silk\nFeel: Soft, fluid, and elegant\nStyle: Classic, refined, and timeless\nOccasion: Weddings | Festive | Formal events",
+    "images": [
+      "https://raw.githubusercontent.com/shreeadvaya/shreeadvaya/main/assets/images/image-1769000760013-mc88xcue5.jpg",
+      "https://raw.githubusercontent.com/shreeadvaya/shreeadvaya/main/assets/images/image-1769000760674-ef8idz1xf.jpg"
+    ],
+    "alt": "",
+    "createdAt": "2026-01-21T13:06:46.568Z"
+  },
+  {
+    "id": "17690008065687by9o2kzd",
+    "name": "Mysore Silk Crepe",
+    "category": "silk",
+    "price": "12500",
+    "description": "Fabric: Pure Crepe Mysore Silk\nFeel: Soft, fluid, and elegant\nStyle: Classic, refined, and timeless\nOccasion: Weddings | Festive | Formal events",
+    "images": [
+      "https://raw.githubusercontent.com/shreeadvaya/shreeadvaya/main/assets/images/image-1769000794821-csyxcky5k.jpg"
+    ],
+    "alt": "",
+    "createdAt": "2026-01-21T13:06:46.568Z"
   }
 ]
