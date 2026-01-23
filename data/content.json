@@ -8,7 +8,7 @@
     {
       "icon": "fas fa-gem",
       "title": "Premium Quality",
-      "description": "Handpicked finest materials and craftsmanship"
+      "description": "* Handpicked finest materials and craftsmanship"
     },
     {
       "icon": "fas fa-palette",
@@ -18,12 +18,17 @@
     {
       "icon": "fas fa-palette",
       "title": "Offline Plus Online experience",
-      "description": "Visit our home studio for an unique experience\nVideo shopping available on request\nBook an appointment for in-person shopping"
+      "description": "* Visit our home studio for an unique experience\n* Video shopping available on request\n* Book an appointment for in-person shopping"
     },
     {
       "icon": "fas fa-shipping-fast",
       "title": "PAN India and Worldwide Shipping",
-      "description": "Secure and timely delivery"
+      "description": "* Secure and timely delivery"
+    },
+    {
+      "icon": "",
+      "title": "Brand Value",
+      "description": "* Affordable elegance to premium luxury - all under one roof\n* Blending tradition with modern style"
     }
   ],
   "social": {
