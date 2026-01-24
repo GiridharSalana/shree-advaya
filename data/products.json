@@ -55,7 +55,7 @@
   {
     "id": "1768982742583zlktd55a0",
     "name": "Banarasi Silk",
-    "category": "designer",
+    "category": "banarasi",
     "price": "11995",
     "description": "Fabric: Pure Crepe Banarasi Silk\nFeel: Soft, fluid, and luxurious\nStyle: Regal, elegant, and timeless\nOccasion: Weddings | Festive | Special occasions",
     "images": [
@@ -63,7 +63,8 @@
       "https://raw.githubusercontent.com/shreeadvaya/shreeadvaya/main/assets/images/image-1768982489284-0orrxbleu.jpg"
     ],
     "alt": "",
-    "createdAt": "2026-01-21T08:05:42.583Z"
+    "createdAt": "2026-01-21T08:05:42.583Z",
+    "updatedAt": "2026-01-24T07:29:08.357Z"
   },
   {
     "id": "1768982742583jflesmk0l",
