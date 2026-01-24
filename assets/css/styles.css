@@ -301,7 +301,7 @@ h6 {
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(135deg, rgba(0, 0, 0, 0.5) 0%, rgba(44, 24, 16, 0.6) 100%);
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.6) 0%, rgba(44, 24, 16, 0.7) 100%);
     z-index: 1;
 }
 
@@ -336,14 +336,15 @@ h6 {
 
 .hero-subtitle {
     font-size: 1.4rem;
-    color: #f5f5f5;
+    color: #ffffff;
     margin-bottom: 3rem;
     line-height: 1.8;
     max-width: 700px;
     margin-left: auto;
     margin-right: auto;
-    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+    text-shadow: 0 2px 15px rgba(0, 0, 0, 0.8), 0 0 30px rgba(0, 0, 0, 0.4);
     animation: fadeInUp 1s ease-out 0.2s backwards;
+    font-weight: 400;
 }
 
 .hero-buttons {
@@ -458,6 +459,14 @@ h6 {
 }
 
 .product-categories {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 3rem;
+    flex-wrap: wrap;
+}
+
+.product-filters {
     display: flex;
     justify-content: center;
     gap: 1rem;
@@ -1774,4 +1783,172 @@ h6 {
 
 ::-webkit-scrollbar-thumb:hover {
     background: #b8941f;
+}
+
+/* Navigation Dropdown */
+.nav-dropdown {
+    position: relative;
+}
+
+.nav-dropdown .dropdown-toggle {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.nav-dropdown .dropdown-toggle i {
+    font-size: 0.7rem;
+    transition: transform 0.3s ease;
+}
+
+.nav-dropdown:hover .dropdown-toggle i {
+    transform: rotate(180deg);
+}
+
+.nav-dropdown .dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #ffffff;
+    min-width: 200px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    border-radius: 8px;
+    padding: 10px 0;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    z-index: 1000;
+    list-style: none;
+}
+
+.nav-dropdown:hover .dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+}
+
+.nav-dropdown .dropdown-menu li {
+    padding: 0;
+}
+
+.nav-dropdown .dropdown-menu a {
+    display: block;
+    padding: 10px 20px;
+    color: #2c1810;
+    text-decoration: none;
+    font-size: 0.95rem;
+    transition: all 0.2s ease;
+}
+
+.nav-dropdown .dropdown-menu a:hover {
+    background: linear-gradient(90deg, rgba(212, 175, 55, 0.1), transparent);
+    color: #d4af37;
+    padding-left: 25px;
+}
+
+/* Policy Modal */
+.policy-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    z-index: 10000;
+    overflow-y: auto;
+    animation: fadeIn 0.3s ease;
+}
+
+.policy-modal.active {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 50px 20px;
+}
+
+.policy-modal-content {
+    background: #ffffff;
+    max-width: 800px;
+    width: 100%;
+    border-radius: 15px;
+    padding: 40px;
+    position: relative;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    margin: auto;
+}
+
+.policy-close {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 2rem;
+    color: #666;
+    cursor: pointer;
+    transition: color 0.3s ease;
+    line-height: 1;
+}
+
+.policy-close:hover {
+    color: #d4af37;
+}
+
+.policy-modal-content h2 {
+    font-size: 2rem;
+    color: #2c1810;
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid #d4af37;
+}
+
+.policy-text {
+    font-size: 1rem;
+    line-height: 1.8;
+    color: #444;
+}
+
+.policy-text p {
+    margin-bottom: 15px;
+}
+
+.policy-text strong {
+    color: #2c1810;
+}
+
+/* Mobile dropdown styles */
+@media (max-width: 768px) {
+    .nav-dropdown .dropdown-menu {
+        position: static;
+        transform: none;
+        box-shadow: none;
+        background: rgba(255, 255, 255, 0.05);
+        padding: 5px 0 5px 20px;
+        opacity: 1;
+        visibility: visible;
+        display: none;
+    }
+
+    .nav-dropdown.active .dropdown-menu {
+        display: block;
+    }
+
+    .nav-dropdown .dropdown-menu a {
+        color: #ffffff;
+        padding: 8px 15px;
+    }
+
+    .nav-dropdown .dropdown-menu a:hover {
+        color: #d4af37;
+        background: transparent;
+    }
+
+    .policy-modal-content {
+        padding: 25px;
+        margin: 20px;
+    }
+
+    .policy-modal-content h2 {
+        font-size: 1.5rem;
+    }
 }
