@@ -490,8 +490,14 @@ async function loadContent() {
         const siteName = content.siteName || defaults.siteName;
         const siteNameNav = document.getElementById('siteNameNav');
         const siteNameFooter = document.getElementById('siteNameFooter');
+        const siteNameCopyright = document.getElementById('siteNameCopyright');
         if (siteNameNav) siteNameNav.textContent = siteName;
         if (siteNameFooter) siteNameFooter.textContent = siteName;
+        if (siteNameCopyright) siteNameCopyright.textContent = siteName;
+        
+        // Auto-update copyright year
+        const currentYearEl = document.getElementById('currentYear');
+        if (currentYearEl) currentYearEl.textContent = new Date().getFullYear();
         
         // Update logo
         const logo = content.logo || defaults.logo;
