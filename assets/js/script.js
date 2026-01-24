@@ -1332,21 +1332,7 @@ function initScrollAnimations() {
   });
 }
 
-// Smooth parallax effect for hero section
-window.addEventListener("scroll", () => {
-  const scrolled = window.pageYOffset;
-  const heroContent = document.querySelector(".hero-content");
-  const heroImage = document.querySelector(".hero-image");
-
-  if (heroContent && scrolled < 800) {
-    heroContent.style.transform = `translateY(${scrolled * 0.3}px)`;
-    heroContent.style.opacity = 1 - scrolled * 0.001;
-  }
-
-  if (heroImage && scrolled < 800) {
-    heroImage.style.transform = `translateY(${scrolled * 0.2}px)`;
-  }
-});
+// Parallax effect removed - hero content stays static on scroll
 
 
 // Keyboard navigation support
