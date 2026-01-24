@@ -1190,10 +1190,10 @@ h6 {
 
 .footer-content {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 4rem;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
     margin-bottom: 4rem;
-    max-width: 900px;
+    max-width: 1200px;
     margin-left: auto;
     margin-right: auto;
     padding: 0 20px;
@@ -1215,11 +1215,7 @@ h6 {
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
 }
 
-/* Hide Categories and Customer Service sections (can be shown later by removing this) */
-.footer-content .footer-section:nth-child(2),
-.footer-content .footer-section:nth-child(3) {
-    display: none;
-}
+/* All footer sections now visible */
 
 .footer-section h4 {
     margin-bottom: 2rem;
@@ -1497,16 +1493,16 @@ h6 {
 
     .footer-content {
         grid-template-columns: repeat(2, 1fr);
-        gap: 2rem;
-        max-width: 700px;
+        gap: 1.5rem;
+        max-width: 800px;
     }
 
     .footer-section {
-        padding: 2rem 1.5rem;
+        padding: 1.5rem 1rem;
     }
 
     .footer-section h4 {
-        font-size: 1.2rem;
+        font-size: 1.1rem;
     }
 
     .social-links {
