@@ -381,8 +381,9 @@ h6 {
 }
 
 .features {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
     gap: 2.5rem;
     margin-top: 3rem;
     max-width: 1200px;
@@ -399,6 +400,9 @@ h6 {
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
     overflow: hidden;
+    flex: 0 1 calc(25% - 2rem);
+    min-width: 220px;
+    max-width: 280px;
 }
 
 .feature::before {
@@ -1468,8 +1472,12 @@ h6 {
     }
 
     .features {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 2rem;
+        gap: 1.5rem;
+    }
+
+    .feature {
+        flex: 0 1 calc(50% - 1rem);
+        min-width: 200px;
     }
 
     .contact-content {
@@ -1563,7 +1571,12 @@ h6 {
     }
 
     .features {
-        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .feature {
+        flex: 0 1 100%;
+        max-width: 350px;
     }
 }
 
@@ -1641,11 +1654,12 @@ h6 {
     }
 
     .features {
-        grid-template-columns: 1fr;
         gap: 1.5rem;
     }
 
     .feature {
+        flex: 0 1 100%;
+        max-width: 320px;
         padding: 2.5rem 2rem;
     }
 
