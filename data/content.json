@@ -23,7 +23,7 @@
     },
     {
       "icon": "fas fa-shipping-fast",
-      "title": "PAN India and Worldwide Shipping",
+      "title": "PAN India Shipping",
       "description": "* Secure and timely delivery"
     },
     {
@@ -50,15 +50,15 @@
     },
     "shipping": {
       "title": "Shipping & Delivery",
-      "content": "Edit"
+      "content": "PAN INDIA FREE SHIPPING CHARGES APPLY FOR ORDERS ABOVE 999/-"
     },
     "returns": {
       "title": "Return & Exchange Policy",
-      "content": "Edit"
+      "content": "RETURNS AND REFUNDS NOT ACCEPTED SUBJECT TO THE FOLLOWING TERMS AND CONDITIONS: \n•\tEXCHANGE REQUESTS TO BE RAISED WITHIN 48 HOURS OF DELIVERY.\n•\tEXCHANGE REQUESTS ARE ACCEPTED ONLY IN CASE OF MANUFACTURING DEFECTS OR WRONG PRODUCT DELIVERY.\n•\tPRODUCT MUST BE UNUSED, UNWASHED, WITH TAGS INTACT.\n•\tCUSTOMERS MUST SHARE UNBOXING VIDEO AS PROOF FOR EXCHANGE REQUESTS.\n•\tEXCHANGE SUBJECT TO STOCK AVAILABILITY, IF NOT WILL BE REFUNDED.\n•\tSHIPPING CHARGES APPLY FOR EXCHANGES TO BE BORNE BY CUSTOMERS."
     },
     "refund": {
       "title": "Refund Policy",
-      "content": "Edit"
+      "content": "REFUNDS NOT ACCEPTED"
     }
   }
 }
