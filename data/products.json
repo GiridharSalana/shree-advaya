@@ -559,5 +559,18 @@
     ],
     "alt": "",
     "createdAt": "2026-01-28T13:46:16.646Z"
+  },
+  {
+    "id": "17696081561844ksr9uvt8",
+    "name": "Maheshwari Cotton Silk",
+    "category": "cotton",
+    "price": "2500",
+    "description": "Fabric: Maheshwari Silk Cotton\nFeel: Lightweight, soft, and breathable\nWash Care : Dry Clean / Hand wash gently in cold water & Dry in shade",
+    "images": [
+      "https://raw.githubusercontent.com/shreeadvaya/shreeadvaya/main/assets/images/image-1769608034887-jjw6ivwji.jpg",
+      "https://raw.githubusercontent.com/shreeadvaya/shreeadvaya/main/assets/images/image-1769608035599-5iv7gum8l.jpg"
+    ],
+    "alt": "",
+    "createdAt": "2026-01-28T13:49:16.199Z"
   }
 ]
