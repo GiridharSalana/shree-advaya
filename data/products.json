@@ -596,5 +596,17 @@
     ],
     "alt": "",
     "createdAt": "2026-01-28T13:52:13.217Z"
+  },
+  {
+    "id": "1769608378166vmax16bx7",
+    "name": "Maheshwari Cotton",
+    "category": "cotton",
+    "price": "1450",
+    "description": "SOLD OUT \nFabric: Maheshwari Cotton\nFeel: Lightweight, soft, and breathable\nWash Care : Dry Clean / Hand wash gently in cold water & Dry in shade",
+    "images": [
+      "https://raw.githubusercontent.com/shreeadvaya/shreeadvaya/main/assets/images/image-1769608346800-ma5hcos3h.jpg"
+    ],
+    "alt": "",
+    "createdAt": "2026-01-28T13:52:58.166Z"
   }
 ]
