@@ -656,5 +656,44 @@
     ],
     "alt": "",
     "createdAt": "2026-01-28T14:10:17.202Z"
+  },
+  {
+    "id": "1769609669392dj5vzunvr",
+    "name": "Modal silk",
+    "category": "modal-silk",
+    "price": "3980",
+    "description": "Fabric: Modal Silk\nFeel: Soft, smooth, and fluid\nWash Care : Dry Clean/ Hand wash gently in cold water & Dry in shade",
+    "images": [
+      "https://raw.githubusercontent.com/shreeadvaya/shreeadvaya/main/assets/images/image-1769609547659-81q9mljbo.jpg",
+      "https://raw.githubusercontent.com/shreeadvaya/shreeadvaya/main/assets/images/image-1769609548336-pv35tnowv.jpg"
+    ],
+    "alt": "",
+    "createdAt": "2026-01-28T14:14:29.392Z"
+  },
+  {
+    "id": "1769609669392rlwtnbuxm",
+    "name": "Modal silk",
+    "category": "modal-silk",
+    "price": "5250",
+    "description": "Fabric: Modal Silk\nFeel: Soft, smooth, and fluid\nWash Care : Dry Clean/ Hand wash gently in cold water & Dry in shade",
+    "images": [
+      "https://raw.githubusercontent.com/shreeadvaya/shreeadvaya/main/assets/images/image-1769609579732-bo4es2fi7.jpg",
+      "https://raw.githubusercontent.com/shreeadvaya/shreeadvaya/main/assets/images/image-1769609580456-mig3oeulx.jpg"
+    ],
+    "alt": "",
+    "createdAt": "2026-01-28T14:14:29.392Z"
+  },
+  {
+    "id": "17696096693921gbutsayx",
+    "name": "Modal silk",
+    "category": "modal-silk",
+    "price": "5250",
+    "description": "Fabric: Modal Silk\nFeel: Soft, smooth, and fluid\nWash Care : Dry Clean/ Hand wash gently in cold water & Dry in shade",
+    "images": [
+      "https://raw.githubusercontent.com/shreeadvaya/shreeadvaya/main/assets/images/image-1769609661081-q7h8gw6ci.jpg",
+      "https://raw.githubusercontent.com/shreeadvaya/shreeadvaya/main/assets/images/image-1769609661995-0nx786smb.jpg"
+    ],
+    "alt": "",
+    "createdAt": "2026-01-28T14:14:29.392Z"
   }
 ]
