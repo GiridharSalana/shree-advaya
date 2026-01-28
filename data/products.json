@@ -608,5 +608,41 @@
     ],
     "alt": "",
     "createdAt": "2026-01-28T13:52:58.166Z"
+  },
+  {
+    "id": "1769609196054kn3rc3jv9",
+    "name": "Fancy sarees",
+    "category": "semi-silk",
+    "price": "2000",
+    "description": "Fabric: Semi silk Fancy sarees\nFeel: Lightweight, soft, and breathable\nWash Care : Dry Clean only",
+    "images": [
+      "https://raw.githubusercontent.com/shreeadvaya/shreeadvaya/main/assets/images/image-1769609123919-bcxqxm780.jpg"
+    ],
+    "alt": "",
+    "createdAt": "2026-01-28T14:06:36.054Z"
+  },
+  {
+    "id": "1769609196054sylnsynxp",
+    "name": "Fancy sarees",
+    "category": "semi-silk",
+    "price": "2000",
+    "description": "SOLD OUT\nFabric: Semi silk Fancy sarees\nFeel: Lightweight, soft, and breathable\nWash Care : Dry Clean only",
+    "images": [
+      "https://raw.githubusercontent.com/shreeadvaya/shreeadvaya/main/assets/images/image-1769609137292-cyd4c3js1.jpg"
+    ],
+    "alt": "",
+    "createdAt": "2026-01-28T14:06:36.054Z"
+  },
+  {
+    "id": "1769609196054r8fwv3iu5",
+    "name": "Fancy sarees",
+    "category": "semi-silk",
+    "price": "2000",
+    "description": "Fabric: Semi silk Fancy sarees\nFeel: Lightweight, soft, and breathable\nWash Care : Dry Clean only",
+    "images": [
+      "https://raw.githubusercontent.com/shreeadvaya/shreeadvaya/main/assets/images/image-1769609172388-8the57hrc.jpg"
+    ],
+    "alt": "",
+    "createdAt": "2026-01-28T14:06:36.054Z"
   }
 ]
