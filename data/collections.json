@@ -46,7 +46,7 @@
   {
     "id": "unstitched-salwar",
     "name": "Unstitched Salwar Materials",
-    "order": 4,
+    "order": 2,
     "subcategories": [
       {
         "id": "linen",
@@ -70,6 +70,6 @@
       }
     ],
     "createdAt": "2026-01-23T00:00:00.000Z",
-    "updatedAt": "2026-01-28T09:22:03.824Z"
+    "updatedAt": "2026-01-28T14:03:49.126Z"
   }
 ]
