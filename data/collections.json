@@ -41,19 +41,25 @@
   {
     "id": "unstitched-salwar",
     "name": "Unstitched Salwar Materials",
-    "order": 2,
+    "order": 3,
     "subcategories": [
       {
-        "id": "salwar-linen",
+        "id": "linen",
         "name": "Linen",
         "order": 1
       },
       {
-        "id": "salwar-cotton",
+        "id": "cotton",
         "name": "Cotton",
         "order": 2
+      },
+      {
+        "id": "chanderi",
+        "name": "Chanderi",
+        "order": 3
       }
     ],
-    "createdAt": "2026-01-23T00:00:00.000Z"
+    "createdAt": "2026-01-23T00:00:00.000Z",
+    "updatedAt": "2026-01-28T09:14:21.519Z"
   }
 ]
