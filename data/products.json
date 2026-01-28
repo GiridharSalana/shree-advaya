@@ -17,14 +17,14 @@
     "name": "Banarasi Silk",
     "category": "banarasi-silk",
     "price": "11995",
-    "description": "Fabric: Pure Crepe Banarasi Silk\nFeel: Soft, fluid, and luxurious\nStyle: Regal, elegant, and timeless\nOccasion: Weddings | Festive | Special occasions",
+    "description": "Fabric: Pure Crepe Banarasi Silk\nFeel: Soft, fluid, and luxurious\nWash Care : Dry Clean only",
     "images": [
       "https://raw.githubusercontent.com/shreeadvaya/shreeadvaya/main/assets/images/image-1768981962631-dqx2oh3xk.jpg",
       "https://raw.githubusercontent.com/shreeadvaya/shreeadvaya/main/assets/images/image-1768981963190-19sgp4yzz.jpg"
     ],
     "alt": "",
     "createdAt": "2025-12-04T19:34:22.425Z",
-    "updatedAt": "2026-01-27T06:21:22.629Z"
+    "updatedAt": "2026-01-28T07:35:54.912Z"
   },
   {
     "id": "1768982089944zxu4vvj28",
@@ -42,41 +42,42 @@
   {
     "id": "1768982742583zlktd55a0",
     "name": "Banarasi Silk",
-    "category": "banarasi",
+    "category": "banarasi-silk",
     "price": "11995",
-    "description": "Fabric: Pure Crepe Banarasi Silk\nFeel: Soft, fluid, and luxurious\nStyle: Regal, elegant, and timeless\nOccasion: Weddings | Festive | Special occasions",
+    "description": "Fabric: Pure Crepe Banarasi Silk\nFeel: Soft, fluid, and luxurious\nWash Care : Dry Clean only",
     "images": [
       "https://raw.githubusercontent.com/shreeadvaya/shreeadvaya/main/assets/images/image-1768982488686-s4y6e5pws.jpg",
       "https://raw.githubusercontent.com/shreeadvaya/shreeadvaya/main/assets/images/image-1768982489284-0orrxbleu.jpg"
     ],
     "alt": "",
     "createdAt": "2026-01-21T08:05:42.583Z",
-    "updatedAt": "2026-01-24T07:29:08.357Z"
+    "updatedAt": "2026-01-28T07:35:54.912Z"
   },
   {
     "id": "1768982742583jflesmk0l",
     "name": "Mysore Silk Crepe",
-    "category": "mysore-silk",
-    "price": "12500",
-    "description": "SOLD OUT \nFabric: Pure Crepe Mysore Silk\nFeel: Soft, fluid, and elegant\nStyle: Classic, refined, and timeless\nOccasion: Weddings | Festive | Formal events",
+    "category": "mysore-silk-sarees",
+    "price": "12550",
+    "description": "Fabric: Pure Crepe Mysore Silk\nFeel: Soft, fluid, and elegant\nWash Care : Dry Clean only",
     "images": [
       "https://raw.githubusercontent.com/shreeadvaya/shreeadvaya/main/assets/images/image-1768982694094-zjh3j4nh7.jpg"
     ],
-    "alt": "Sold Out",
+    "alt": "",
     "createdAt": "2026-01-21T08:05:42.583Z",
-    "updatedAt": "2026-01-21T08:27:02.200Z"
+    "updatedAt": "2026-01-28T07:35:54.912Z"
   },
   {
     "id": "1768984022200owgbiatjn",
     "name": "Mysore Silk Crepe",
-    "category": "mysore-silk",
-    "price": "12500",
-    "description": "Fabric: Pure Crepe Mysore Silk\nFeel: Soft, fluid, and elegant\nStyle: Classic, refined, and timeless\nOccasion: Weddings | Festive | Formal events",
+    "category": "mysore-silk-sarees",
+    "price": "12550",
+    "description": "SOLD OUT\nFabric: Pure Crepe Mysore Silk\nFeel: Soft, fluid, and elegant\nWash Care : Dry Clean only",
     "images": [
       "https://raw.githubusercontent.com/shreeadvaya/shreeadvaya/main/assets/images/image-1768982979115-zbf8vlgtf.jpg"
     ],
     "alt": "",
-    "createdAt": "2026-01-21T08:27:02.201Z"
+    "createdAt": "2026-01-21T08:27:02.201Z",
+    "updatedAt": "2026-01-28T07:35:54.912Z"
   },
   {
     "id": "1768984022201n17woct91",
