@@ -38,10 +38,15 @@
         "id": "semi-silk",
         "name": "Semi Silk",
         "order": 7
+      },
+      {
+        "id": "modal-silk",
+        "name": "Modal silk",
+        "order": 8
       }
     ],
     "createdAt": "2026-01-23T00:00:00.000Z",
-    "updatedAt": "2026-01-28T14:03:03.759Z"
+    "updatedAt": "2026-01-28T14:10:06.570Z"
   },
   {
     "id": "unstitched-salwar",
