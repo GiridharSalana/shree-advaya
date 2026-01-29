@@ -265,7 +265,7 @@
   {
     "id": "17694949811525o47515sf",
     "name": "Dress Materials",
-    "category": "salwar-linen",
+    "category": "linen",
     "price": "1450",
     "description": "Fabric: Linen Cotton\nFeel: Soft, breathable, and lightweight\nWash care: Dry Clean/ Hand wash gently in cold water",
     "images": [
@@ -273,12 +273,12 @@
     ],
     "alt": "",
     "createdAt": "2026-01-27T06:23:01.153Z",
-    "updatedAt": "2026-01-28T07:42:37.945Z"
+    "updatedAt": "2026-01-29T06:19:05.773Z"
   },
   {
     "id": "1769495091895t2t38zx3h",
     "name": "Dress Materials",
-    "category": "salwar-linen",
+    "category": "linen",
     "price": "1450",
     "description": "Fabric: Linen Cotton\nFeel: Soft, breathable, and lightweight\nWash care: Dry Clean/ Hand wash gently in cold water",
     "images": [
@@ -286,12 +286,12 @@
     ],
     "alt": "",
     "createdAt": "2026-01-27T06:24:51.895Z",
-    "updatedAt": "2026-01-28T07:42:37.945Z"
+    "updatedAt": "2026-01-29T06:19:05.774Z"
   },
   {
     "id": "1769495091895oeeh3yt1e",
     "name": "Dress Materials",
-    "category": "salwar-linen",
+    "category": "linen",
     "price": "1450",
     "description": "Fabric: Linen Cotton\nFeel: Soft, breathable, and lightweight\nWash care: Dry Clean/ Hand wash gently in cold water",
     "images": [
@@ -299,12 +299,12 @@
     ],
     "alt": "",
     "createdAt": "2026-01-27T06:24:51.895Z",
-    "updatedAt": "2026-01-28T07:42:37.945Z"
+    "updatedAt": "2026-01-29T06:19:05.774Z"
   },
   {
     "id": "17694950918956hm4xwuyo",
     "name": "Dress Materials",
-    "category": "salwar-linen",
+    "category": "linen",
     "price": "1450",
     "description": "Fabric: Linen Cotton\nFeel: Soft, breathable, and lightweight\nWash care: Dry Clean/ Hand wash gently in cold water",
     "images": [
@@ -312,12 +312,12 @@
     ],
     "alt": "",
     "createdAt": "2026-01-27T06:24:51.895Z",
-    "updatedAt": "2026-01-28T07:42:37.945Z"
+    "updatedAt": "2026-01-29T06:19:05.774Z"
   },
   {
     "id": "1769495136599lzw7rizbj",
     "name": "Dress Materials",
-    "category": "salwar-linen",
+    "category": "linen",
     "price": "1450",
     "description": "Fabric: Linen Cotton\nFeel: Soft, breathable, and lightweight\nWash care: Dry Clean/ Hand wash gently in cold water",
     "images": [
@@ -325,7 +325,7 @@
     ],
     "alt": "",
     "createdAt": "2026-01-27T06:25:36.599Z",
-    "updatedAt": "2026-01-28T07:42:37.945Z"
+    "updatedAt": "2026-01-29T06:19:05.774Z"
   },
   {
     "id": "1769495190290yxjfvzwcw",
@@ -369,62 +369,67 @@
   {
     "id": "1769590780069khv4apbzv",
     "name": "Dress Materials",
-    "category": "salwar-cotton",
+    "category": "cotton",
     "price": "1225",
     "description": "Fabric: Pure Cotton\nFeel: Soft, breathable, and comfortable\nWash Care : Hand wash gently in cold water & Dry in shade",
     "images": [
       "https://raw.githubusercontent.com/shreeadvaya/shreeadvaya/main/assets/images/image-1769590735432-oznk2czcw.jpg"
     ],
     "alt": "",
-    "createdAt": "2026-01-28T08:59:40.076Z"
+    "createdAt": "2026-01-28T08:59:40.076Z",
+    "updatedAt": "2026-01-29T06:19:05.774Z"
   },
   {
     "id": "1769590988162stj7d4eei",
     "name": "Dress Materials",
-    "category": "salwar-cotton",
+    "category": "cotton",
     "price": "1550",
     "description": "Fabric: Pure Cotton with Kota dupatta\nFeel: Soft, breathable, and comfortable\nWash Care : Hand wash gently in cold water & Dry in shade",
     "images": [
       "https://raw.githubusercontent.com/shreeadvaya/shreeadvaya/main/assets/images/image-1769590807085-gdwa85xxl.jpg"
     ],
     "alt": "",
-    "createdAt": "2026-01-28T09:03:08.163Z"
+    "createdAt": "2026-01-28T09:03:08.163Z",
+    "updatedAt": "2026-01-29T06:19:05.774Z"
   },
   {
     "id": "1769590988163m2u0lrcdk",
     "name": "Dress Materials",
-    "category": "salwar-cotton",
+    "category": "cotton",
     "price": "1550",
     "description": "Fabric: Pure Cotton with Kota dupatta\nFeel: Soft, breathable, and comfortable\nWash Care : Hand wash gently in cold water & Dry in shade",
     "images": [
       "https://raw.githubusercontent.com/shreeadvaya/shreeadvaya/main/assets/images/image-1769590891287-oj7z9pbaf.jpg"
     ],
     "alt": "",
-    "createdAt": "2026-01-28T09:03:08.163Z"
+    "createdAt": "2026-01-28T09:03:08.163Z",
+    "updatedAt": "2026-01-29T06:19:05.774Z"
   },
   {
     "id": "1769590988163kti1bksj8",
     "name": "Dress Materials",
-    "category": "salwar-cotton",
+    "category": "cotton",
     "price": "1550",
     "description": "Fabric: Pure Cotton with Kota dupatta\nFeel: Soft, breathable, and comfortable\nWash Care : Hand wash gently in cold water & Dry in shade",
     "images": [
       "https://raw.githubusercontent.com/shreeadvaya/shreeadvaya/main/assets/images/image-1769590927745-pf9e5fqqx.jpg"
     ],
     "alt": "",
-    "createdAt": "2026-01-28T09:03:08.163Z"
+    "createdAt": "2026-01-28T09:03:08.163Z",
+    "updatedAt": "2026-01-29T06:19:05.774Z"
   },
   {
     "id": "17695909881639muiuvyk0",
     "name": "Dress Materials",
-    "category": "salwar-cotton",
+    "category": "cotton",
     "price": "1550",
     "description": "Fabric: Pure Cotton with Kota dupatta\nFeel: Soft, breathable, and comfortable\nWash Care : Hand wash gently in cold water & Dry in shade",
     "images": [
       "https://raw.githubusercontent.com/shreeadvaya/shreeadvaya/main/assets/images/image-1769590951852-4jbjrk9ya.jpg"
     ],
     "alt": "",
-    "createdAt": "2026-01-28T09:03:08.163Z"
+    "createdAt": "2026-01-28T09:03:08.163Z",
+    "updatedAt": "2026-01-29T06:19:05.774Z"
   },
   {
     "id": "1769590988163yjhta3tth",
@@ -442,14 +447,15 @@
   {
     "id": "1769591567508mtliwdpaz",
     "name": "Dress Materials",
-    "category": "salwar-linen",
+    "category": "linen",
     "price": "1550",
     "description": "Fabric: Linen Cotton\nFeel: Soft, breathable, and lightweight\nWash care: Dry Clean/ Hand wash gently in cold water",
     "images": [
       "https://raw.githubusercontent.com/shreeadvaya/shreeadvaya/main/assets/images/image-1769591537946-58uxqnasl.jpg"
     ],
     "alt": "",
-    "createdAt": "2026-01-28T09:12:47.509Z"
+    "createdAt": "2026-01-28T09:12:47.509Z",
+    "updatedAt": "2026-01-29T06:19:05.774Z"
   },
   {
     "id": "1769592013211kri7hh8bw",
@@ -461,7 +467,8 @@
       "https://raw.githubusercontent.com/shreeadvaya/shreeadvaya/main/assets/images/image-1769591717901-1qbs0yobk.jpg"
     ],
     "alt": "",
-    "createdAt": "2026-01-28T09:20:13.211Z"
+    "createdAt": "2026-01-28T09:20:13.211Z",
+    "updatedAt": "2026-01-29T06:19:05.774Z"
   },
   {
     "id": "1769592227324x6kl9p8th",
@@ -473,7 +480,8 @@
       "https://raw.githubusercontent.com/shreeadvaya/shreeadvaya/main/assets/images/image-1769592219223-rozodc8gl.jpg"
     ],
     "alt": "",
-    "createdAt": "2026-01-28T09:23:47.337Z"
+    "createdAt": "2026-01-28T09:23:47.337Z",
+    "updatedAt": "2026-01-29T06:19:05.774Z"
   },
   {
     "id": "176960766675347j44f8nk",
