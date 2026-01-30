@@ -60,26 +60,26 @@
     "subcategories": [
       {
         "id": "linen",
-        "name": "Linen",
+        "name": "Linen-",
         "order": 1
       },
       {
         "id": "cotton",
-        "name": "Cotton",
+        "name": "Cotton-",
         "order": 2
       },
       {
         "id": "chanderi",
-        "name": "Chanderi",
+        "name": "Chanderi-",
         "order": 3
       },
       {
         "id": "modal-silk",
-        "name": "Modal silk",
+        "name": "Modal silk-",
         "order": 4
       }
     ],
     "createdAt": "2026-01-23T00:00:00.000Z",
-    "updatedAt": "2026-01-28T14:03:49.126Z"
+    "updatedAt": "2026-01-30T17:14:31.065Z"
   }
 ]
