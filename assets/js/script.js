@@ -106,6 +106,7 @@ function updateInquiryDropdown() {
 function initCollectionDropdowns() {
     const collectionDropdown = document.getElementById('collectionDropdown');
     const subcategoryDropdown = document.getElementById('subcategoryDropdown');
+    const priceDropdown = document.getElementById('priceDropdown');
     
     if (!collectionDropdown || !subcategoryDropdown) return;
     
@@ -120,6 +121,13 @@ function initCollectionDropdowns() {
     subcategoryDropdown.addEventListener('change', () => {
         filterProducts();
     });
+    
+    // When price filter changes, filter products
+    if (priceDropdown) {
+        priceDropdown.addEventListener('change', () => {
+            filterProducts();
+        });
+    }
 }
 
 // Update subcategory dropdown based on selected collection
@@ -130,15 +138,16 @@ function updateSubcategoryDropdown(collectionId) {
     subcategoryDropdown.innerHTML = '<option value="all" selected>All Types</option>';
     
     if (collectionId === 'all') {
-        // Show all subcategories from all collections
+        // Show all subcategories from all collections with composite IDs
         collectionsData.forEach(collection => {
             if (collection.subcategories && collection.subcategories.length > 0) {
                 collection.subcategories
                     .sort((a, b) => (a.order || 0) - (b.order || 0))
                     .forEach(sub => {
                         const option = document.createElement('option');
-                        option.value = sub.id;
-                        option.textContent = `${sub.name}`;
+                        // Use composite ID: collectionId:subcategoryId
+                        option.value = `${collection.id}:${sub.id}`;
+                        option.textContent = `${sub.name} (${collection.name})`;
                         subcategoryDropdown.appendChild(option);
                     });
             }
@@ -151,7 +160,8 @@ function updateSubcategoryDropdown(collectionId) {
                 .sort((a, b) => (a.order || 0) - (b.order || 0))
                 .forEach(sub => {
                     const option = document.createElement('option');
-                    option.value = sub.id;
+                    // Use composite ID: collectionId:subcategoryId
+                    option.value = `${collection.id}:${sub.id}`;
                     option.textContent = sub.name;
                     subcategoryDropdown.appendChild(option);
                 });
@@ -159,29 +169,44 @@ function updateSubcategoryDropdown(collectionId) {
     }
 }
 
-// Filter products based on collection and subcategory
+// Filter products based on collection, subcategory, and price
 function filterProducts() {
     const collectionDropdown = document.getElementById('collectionDropdown');
     const subcategoryDropdown = document.getElementById('subcategoryDropdown');
+    const priceDropdown = document.getElementById('priceDropdown');
     const productCards = document.querySelectorAll('.product-card');
     
     if (!collectionDropdown || !subcategoryDropdown || !productCards.length) return;
     
     const collectionId = collectionDropdown.value;
-    const subcategoryId = subcategoryDropdown.value;
+    const subcategoryId = subcategoryDropdown.value; // Now composite: collectionId:subcategoryId
+    const priceRange = priceDropdown ? priceDropdown.value : 'all';
     
-    // Get all valid subcategory IDs for the selected collection
-    let validSubcategories = [];
+    // Parse price range (format: "min-max" or "min-" for no max)
+    let minPrice = 0;
+    let maxPrice = Infinity;
+    if (priceRange !== 'all') {
+        const [min, max] = priceRange.split('-');
+        minPrice = parseInt(min) || 0;
+        maxPrice = max === '' ? Infinity : (parseInt(max) || Infinity);
+    }
+    
+    // Get all valid composite category IDs for the selected collection
+    let validCategories = [];
     if (collectionId === 'all') {
         collectionsData.forEach(c => {
             if (c.subcategories) {
-                validSubcategories = validSubcategories.concat(c.subcategories.map(s => s.id));
+                c.subcategories.forEach(s => {
+                    validCategories.push(`${c.id}:${s.id}`);
+                });
             }
         });
     } else {
         const collection = collectionsData.find(c => c.id === collectionId);
         if (collection && collection.subcategories) {
-            validSubcategories = collection.subcategories.map(s => s.id);
+            collection.subcategories.forEach(s => {
+                validCategories.push(`${collection.id}:${s.id}`);
+            });
         }
     }
     
@@ -196,18 +221,52 @@ function filterProducts() {
     // Filter and show matching cards
     const visibleCards = Array.from(productCards).filter(card => {
         const cardCategory = card.getAttribute('data-category');
+        const cardPrice = parseFloat(card.getAttribute('data-price')) || 0;
         
-        // If "all" is selected for both, show all
+        // Price filter check
+        if (cardPrice < minPrice || cardPrice > maxPrice) return false;
+        
+        // If "all" is selected for both collection and subcategory, show all (price already filtered)
         if (collectionId === 'all' && subcategoryId === 'all') return true;
         
-        // If specific subcategory is selected
+        // If specific subcategory is selected (composite ID: collectionId:subcategoryId)
         if (subcategoryId !== 'all') {
-            return cardCategory === subcategoryId;
+            // Exact match for composite category
+            if (cardCategory === subcategoryId) return true;
+            // Backward compatibility: match old simple category IDs
+            const [, subId] = subcategoryId.split(':');
+            return cardCategory === subId;
         }
         
         // If only collection is selected, show all subcategories of that collection
-        return validSubcategories.includes(cardCategory);
+        // Check if card's category matches any valid composite category
+        if (validCategories.includes(cardCategory)) return true;
+        // Backward compatibility: check if card's simple category matches subcategory part
+        return validCategories.some(vc => vc.split(':')[1] === cardCategory && vc.startsWith(collectionId + ':'));
     });
+    
+    // Show/hide "no products" message
+    const productsGrid = document.getElementById('productsGrid');
+    let noProductsMsg = document.getElementById('noProductsMessage');
+    
+    if (visibleCards.length === 0) {
+        if (!noProductsMsg) {
+            noProductsMsg = document.createElement('div');
+            noProductsMsg.id = 'noProductsMessage';
+            noProductsMsg.style.cssText = 'text-align: center; grid-column: 1/-1; padding: 60px 20px; color: #666;';
+            noProductsMsg.innerHTML = `
+                <i class="fas fa-search" style="font-size: 3rem; color: #d4af37; margin-bottom: 15px; display: block;"></i>
+                <h3 style="color: #2c1810; margin-bottom: 10px;">No products found</h3>
+                <p>Try adjusting your filters to find what you're looking for.</p>
+            `;
+            productsGrid.appendChild(noProductsMsg);
+        }
+        noProductsMsg.style.display = 'block';
+    } else {
+        if (noProductsMsg) {
+            noProductsMsg.style.display = 'none';
+        }
+    }
     
     // Animate visible cards
     visibleCards.forEach((card, index) => {
@@ -242,10 +301,16 @@ async function loadProducts() {
             return;
         }
         
+        // Store products globally for WhatsApp inquiry access
+        window.productData = window.productData || {};
+        
         products.forEach((product, index) => {
+            // Store product in global object for inquiry button access
+            window.productData[product.id] = product;
             const card = document.createElement('div');
             card.className = 'product-card';
             card.setAttribute('data-category', product.category);
+            card.setAttribute('data-price', product.price || 0);
             
             // Support both single image (backward compatibility) and multiple images
             const images = product.images || (product.image ? [product.image] : ['assets/images/product-1.webp']);
@@ -292,7 +357,7 @@ async function loadProducts() {
                     <h3>${product.name}</h3>
                     ${product.description ? `<p class="product-description">${product.description}</p>` : ''}
                     <p class="product-price">₹${product.price}</p>
-                    <button class="btn btn-primary product-inquire-btn" onclick="event.stopPropagation(); openWhatsApp('${product.name}')">
+                    <button class="btn btn-primary product-inquire-btn" onclick="event.stopPropagation(); openWhatsApp(window.productData['${product.id}'])">
                         <i class="fab fa-whatsapp"></i> Inquire Now
                     </button>
                 </div>
@@ -867,14 +932,48 @@ function initProductCarousels() {
 }
 
 // WhatsApp Integration
-function openWhatsApp(productName = "") {
+function openWhatsApp(productOrName = "") {
   const phoneNumber = window.whatsappNumber || "919876543210";
-  const message = productName
-    ? `Hi! I'm interested in: ${productName}`
-    : "Hi! I would like to know more about your saree collection.";
-  const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(
-    message
-  )}`;
+  let message = "";
+  
+  // Check if it's a product object or just a name string
+  if (typeof productOrName === 'object' && productOrName !== null) {
+    const product = productOrName;
+    const productUrl = product.images?.[0] || product.image || '';
+    
+    // Build detailed message
+    message = `🛍️ *Product Inquiry*\n\n`;
+    message += `*${product.name}*\n`;
+    if (product.price) message += `💰 Price: ₹${product.price}\n`;
+    if (product.category) {
+      // Handle composite category IDs (collectionId:subcategoryId) or simple IDs
+      let categorySlug = product.category;
+      if (product.category.includes(':')) {
+        categorySlug = product.category.split(':')[1]; // Get subcategory part
+      }
+      // Convert slug to readable format (e.g., "kancheepuram-silk-sarees" -> "Kancheepuram Silk Sarees")
+      const categoryDisplay = categorySlug.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+      message += `📂 Category: ${categoryDisplay}\n`;
+    }
+    message += `\nI'm interested in this product. Please share more details.`;
+    if (productUrl) {
+      // Add image URL at the end - WhatsApp may show a link preview
+      const baseUrl = window.location.origin + window.location.pathname.replace(/\/[^\/]*$/, '/');
+      const fullImageUrl = productUrl.startsWith('http') ? productUrl : baseUrl + productUrl;
+      message += `\n\n${fullImageUrl}`;
+    }
+  } else if (productOrName) {
+    // Fallback: check if we have current modal product with matching name
+    if (window.currentModalProduct && window.currentModalProduct.name === productOrName) {
+      return openWhatsApp(window.currentModalProduct);
+    }
+    // Simple name-based message
+    message = `Hi! I'm interested in: ${productOrName}`;
+  } else {
+    message = "Hi! I would like to know more about your saree collection.";
+  }
+  
+  const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
   window.open(whatsappUrl, "_blank");
 }
 
@@ -903,16 +1002,39 @@ function openProductModal(product) {
     </div>
   ` : '';
   
-  // Get category display name from loaded categories
-  let categoryDisplay = product.category || 'Saree';
+  // Get category display name from collections data
+  let categoryDisplay = 'Saree';
   
-  // Try to find the category name from the loaded categories
-  const categoryBtns = document.querySelectorAll('.category-btn');
-  categoryBtns.forEach(btn => {
-    if (btn.getAttribute('data-category') === product.category) {
-      categoryDisplay = btn.textContent;
+  if (product.category) {
+    // Handle composite category IDs (collectionId:subcategoryId)
+    if (product.category.includes(':')) {
+      const [collectionId, subcategoryId] = product.category.split(':');
+      const collection = collectionsData.find(c => c.id === collectionId);
+      if (collection && collection.subcategories) {
+        const subcategory = collection.subcategories.find(s => s.id === subcategoryId);
+        if (subcategory) {
+          categoryDisplay = subcategory.name;
+        }
+      }
+    } else {
+      // Simple category ID - try to find in any collection
+      for (const collection of collectionsData) {
+        if (collection.subcategories) {
+          const subcategory = collection.subcategories.find(s => s.id === product.category);
+          if (subcategory) {
+            categoryDisplay = subcategory.name;
+            break;
+          }
+        }
+      }
     }
-  });
+    
+    // Fallback: format the slug if not found in collections
+    if (categoryDisplay === 'Saree') {
+      let categorySlug = product.category.includes(':') ? product.category.split(':')[1] : product.category;
+      categoryDisplay = categorySlug.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+    }
+  }
   
   // Populate modal
   modal.innerHTML = `
@@ -933,7 +1055,7 @@ function openProductModal(product) {
             ${product.description || 'Beautiful saree with exquisite design and premium quality fabric. Perfect for special occasions and celebrations.'}
           </p>
           <div class="product-modal-actions">
-            <button class="btn btn-primary" onclick="openWhatsApp('${product.name}')">
+            <button class="btn btn-primary" onclick="openWhatsApp(window.currentModalProduct)">
               <i class="fab fa-whatsapp"></i> Inquire on WhatsApp
             </button>
             <button class="btn btn-secondary" onclick="closeProductModal()">

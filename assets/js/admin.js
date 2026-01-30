@@ -998,7 +998,8 @@ function updateProductCategoryFromCollections(collections) {
                 .sort((a, b) => (a.order || 0) - (b.order || 0))
                 .forEach(sub => {
                     const option = document.createElement('option');
-                    option.value = sub.id;
+                    // Use composite ID: collectionId:subcategoryId for uniqueness
+                    option.value = `${collection.id}:${sub.id}`;
                     option.textContent = sub.name;
                     optgroup.appendChild(option);
                 });
