@@ -954,44 +954,42 @@ function openWhatsApp(productOrName = "") {
   const phoneNumber = window.whatsappNumber || "919876543210";
   let message = "";
   
-  // Check if it's a product object or just a name string
   if (typeof productOrName === 'object' && productOrName !== null) {
     const product = productOrName;
     const productUrl = product.images?.[0] || product.image || '';
     
-    // Build detailed message
-    message = `🛍️ *Product Inquiry*\n\n`;
-    message += `*${product.name}*\n`;
-    if (product.price) message += `💰 Price: ₹${product.price}\n`;
+    // Get category display name
+    let categoryDisplay = '';
     if (product.category) {
-      // Handle composite category IDs (collectionId:subcategoryId) or simple IDs
-      let categorySlug = product.category;
-      if (product.category.includes(':')) {
-        categorySlug = product.category.split(':')[1]; // Get subcategory part
-      }
-      // Convert slug to readable format (e.g., "kancheepuram-silk-sarees" -> "Kancheepuram Silk Sarees")
-      const categoryDisplay = categorySlug.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
-      message += `📂 Category: ${categoryDisplay}\n`;
+      let categorySlug = product.category.includes(':') ? product.category.split(':')[1] : product.category;
+      categoryDisplay = categorySlug.split('-').map(function(word) { return word.charAt(0).toUpperCase() + word.slice(1); }).join(' ');
     }
-    message += `\nI'm interested in this product. Please share more details.`;
+    
+    // Build clean message without extra spaces
+    message = "🛍️ *Product Inquiry*\n\n";
+    message += "*" + product.name + "*\n";
+    if (product.price) {
+      message += "💰 Price: ₹" + product.price + "\n";
+    }
+    if (categoryDisplay) {
+      message += "📂 Category: " + categoryDisplay + "\n";
+    }
+    message += "\nI'm interested in this product. Please share more details.";
+    
     if (productUrl) {
-      // Add image URL at the end - WhatsApp may show a link preview
-      const baseUrl = window.location.origin + window.location.pathname.replace(/\/[^\/]*$/, '/');
-      const fullImageUrl = productUrl.startsWith('http') ? productUrl : baseUrl + productUrl;
-      message += `\n\n${fullImageUrl}`;
+      var fullImageUrl = productUrl.startsWith('http') ? productUrl : (window.location.origin + '/' + productUrl);
+      message += "\n\n" + fullImageUrl;
     }
   } else if (productOrName) {
-    // Fallback: check if we have current modal product with matching name
     if (window.currentModalProduct && window.currentModalProduct.name === productOrName) {
       return openWhatsApp(window.currentModalProduct);
     }
-    // Simple name-based message
-    message = `Hi! I'm interested in: ${productOrName}`;
+    message = "Hi! I'm interested in: " + productOrName;
   } else {
     message = "Hi! I would like to know more about your saree collection.";
   }
   
-  const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+  var whatsappUrl = "https://wa.me/" + phoneNumber + "?text=" + encodeURIComponent(message);
   window.open(whatsappUrl, "_blank");
 }
 
