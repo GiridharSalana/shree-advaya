@@ -167,13 +167,26 @@ async function patchIndexHtml(token, owner, repo, content) {
         const sha = fileData.sha;
         let html = Buffer.from(fileData.content, 'base64').toString('utf-8');
 
-        // Replace inner text/html of an element by its id
+        // Replace inner text of an element by its id
         function patchById(html, id, newText) {
-            // Matches id="ID" anywhere in an opening tag, then replaces content until closing tag
             const regex = new RegExp(`(id="${id}"[^>]*>)([\\s\\S]*?)(<\\/[a-zA-Z0-9]+>)`, 'i');
             return html.replace(regex, `$1${newText}$3`);
         }
 
+        // Replace a specific attribute value on an element by its id
+        function patchAttr(html, id, attr, newValue) {
+            const regex = new RegExp(`(<[a-zA-Z]+[^>]*id="${id}"[^>]*)${attr}="[^"]*"`, 'i');
+            if (regex.test(html)) {
+                return html.replace(regex, `$1${attr}="${newValue}"`);
+            }
+            // Also try attr before id
+            const regex2 = new RegExp(`(<[a-zA-Z]+[^>]*${attr}=")[^"]*("[^>]*id="${id}")`, 'i');
+            return html.replace(regex2, `$1${newValue}$2`);
+        }
+
+        if (content.logo) {
+            html = patchAttr(html, 'siteLogo', 'src', content.logo);
+        }
         if (content.siteName) {
             html = patchById(html, 'siteNameNav', content.siteName);
             html = patchById(html, 'siteNameFooter', content.siteName);
