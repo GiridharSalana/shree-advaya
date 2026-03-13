@@ -209,6 +209,7 @@ h6 {
 /* Hero Section - With Background Slideshow */
 .hero {
     min-height: 100vh;
+    min-height: 100svh; /* Uses small viewport height on mobile - excludes dynamic address bar */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -238,9 +239,24 @@ h6 {
     background-position: center;
     background-repeat: no-repeat;
     animation: slideshow 24s infinite;
-    will-change: opacity;
+    will-change: opacity, transform;
     image-rendering: -webkit-optimize-contrast;
     image-rendering: crisp-edges;
+}
+
+@media (max-width: 768px) {
+    .hero-slide {
+        animation: slideshowMobile 24s infinite;
+        will-change: opacity;
+    }
+}
+
+@keyframes slideshowMobile {
+    0%   { opacity: 0; }
+    4%   { opacity: 1; }
+    25%  { opacity: 1; }
+    29%  { opacity: 0; }
+    100% { opacity: 0; }
 }
 
 .hero-slide:nth-child(1) {
